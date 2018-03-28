@@ -1,9 +1,26 @@
+import java.awt.Graphics;
+import java.util.ArrayList;
 
 public class DEObjectManager {
 
-	DEObject objj;
-	Array
+	// Member Variables
+
+	ArrayList<DEObject> objects;
+
+	// Constructor
 	public DEObjectManager() {
-	objj = new DEObject();
-}
+		objects = new ArrayList<DEObject>();
+
+	}
+	// Methods
+
+	public void addDEObject(DEObject object) {
+		objects.add(object);
+	}
+	
+	public void draw(Graphics g) {
+		 for(DEObject o : objects) {
+			 o.draw(g);
+		 }
+	}
 }

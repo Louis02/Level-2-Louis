@@ -5,12 +5,26 @@ import javax.swing.JPanel;
 
 public class DERunner {
 
-	int width;
-	int height;
+	// Member Variables
 
+	final static int width = 500;
+
+	final static int height = 500;
+
+	// Main
 	public static void main(String[] args) {
+		
 		JFrame frame = new JFrame();
+
 		DEGamePanel gp = new DEGamePanel();
+
 		frame.add(gp);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setVisible(true);
+
+		frame.setSize(width, height);
+
 	}
 }
