@@ -7,7 +7,7 @@ public class DERunner {
 
 	// Member Variables
 
-	final static int width = 500;
+	final static int width = 400;
 
 	final static int height = 500;
 

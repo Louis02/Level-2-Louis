@@ -15,22 +15,22 @@ public class DEObject {
 	int col;
 
 	int width;
-
+	
 	int height;
 
 	Random r;
 
 	// Constructor
-	public DEObject() {
-		x = 0;
+	public DEObject(int width, int height, int row, int col) {
+		x = width*col;
 
-		y = 0;
-
-		width = 50;
-
-		height = 50;
+		y = height*row;
 
 		r = new Random();
+		
+		this.width = width;
+		
+		this.height = height;
 
 	}
 
@@ -39,7 +39,7 @@ public class DEObject {
 
 		g.setColor(new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256)));
 		
-		g.fillRect(x, y, width, height);
+		g.fillRect(x, y, width, height );
 		
 		g.drawRect(x, y, width, height);
 
