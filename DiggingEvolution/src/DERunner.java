@@ -13,13 +13,13 @@ public class DERunner {
 
 	// Main
 	public static void main(String[] args) {
-		
+
 		JFrame frame = new JFrame();
 
 		DEGamePanel gp = new DEGamePanel();
 
 		frame.add(gp);
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.setVisible(true);
