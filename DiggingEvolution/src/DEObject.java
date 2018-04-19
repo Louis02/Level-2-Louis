@@ -37,11 +37,16 @@ public class DEObject {
 		this.state = state;
 
 	}
-
+public void setRowPos (int row, int col) {
+	x = width*col;
+	
+	y = height*col;
+	
+}
 	// Methods
 	public void draw(Graphics g) {
 
-		if (DEGamePanel.es == state) {
+		if (DEGamePanel.empty == state) {
 
 			g.setColor(new Color(90, 44, 16));
 

@@ -17,7 +17,7 @@ public class DEObjectManager {
 	public void addDEObject(DEObject object) {
 		objects.add(object);
 	}
-	
+
 	public void draw(Graphics g) {
 		 for(DEObject o : objects) {
 			 o.draw(g);

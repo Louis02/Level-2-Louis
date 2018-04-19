@@ -1,4 +1,4 @@
-import java.awt.Component;
+ import java.awt.Component;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +23,8 @@ public class DERunner {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.setVisible(true);
+		
+		frame.addKeyListener(gp);
 
 		frame.setSize(width, height);
 
