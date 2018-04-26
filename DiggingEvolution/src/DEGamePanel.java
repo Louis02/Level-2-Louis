@@ -22,23 +22,23 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	static final int jef = 2;
 
-	int jefColumm = 4;
+	int jefCol = 4;
 
 	int jefRow = 0;
 
 	Random r = new Random();
 
 	int[][] state = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
 					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
 					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					};
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+												};
 
 	// Constructor
 	public DEGamePanel() {
@@ -47,7 +47,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 		grid = new DEObject[rows][cols];
 
-		state[r.nextInt(cols - 1) + 1][r.nextInt(rows)] = ab;
+		//state[r.nextInt(cols - 1) + 1][r.nextInt(rows)] = ab;
 
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
@@ -64,7 +64,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	// Methods
 	public void paintComponent(Graphics g) {
 		om.draw(g);
-		repaint();
+		//repaint();
 	}
 
 	@Override
@@ -79,15 +79,18 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-		state[jefRow][jefColumm] = empty;
-		
+
+		state[jefRow][jefCol] = empty;
+
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-System.out.println("hellloooo");
-			jefColumm++;
-			state[jefRow][jefColumm] = jef;
+			
+			jefCol++;
+			state[jefRow][jefCol] = jef;
+			grid[jefRow][jefCol].setRowPos(jefRow, jefCol);
 
 		}
+
 		repaint();
+
 	}
 }
