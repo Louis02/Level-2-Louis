@@ -40,19 +40,11 @@ public class DEObject {
 
 	}
 
-	public void setRowPos(int row, int col) {
-		x = width * col;
 
-		y = height * row;
-		//System.out.println(x + " " + y + " " + row + " " + col);
-		
-		this.row = row;
-		this.col = col;
-	}
 
 	// Methods
 	public void draw(Graphics g) {
-System.out.println(x + " " + y + " " + row + " " + col);
+
 		if (DEGamePanel.empty == state) {
 
 			g.setColor(new Color(90, 44, 16));
@@ -64,12 +56,16 @@ System.out.println(x + " " + y + " " + row + " " + col);
 			g.setColor(new Color(200, 100, 0));
 			g.fillRect(x, y, width, height);
 
-		} 
+		}
 		if (DEGamePanel.jef == state) {
 			g.setColor(Color.red);
 			g.fillRect(x, y, width, height);
-			
+			System.out.println(this.x + " " + this.y + " " + this.row + " " + this.col);
 		}
 
+	}
+
+	public void state(int state) {
+		this.state = state;
 	}
 }

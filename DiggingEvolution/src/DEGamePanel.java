@@ -25,20 +25,15 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	int jefCol = 4;
 
 	int jefRow = 0;
+	
+
 
 	Random r = new Random();
 
-	int[][] state = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-												};
+	int[][] state = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 
 	// Constructor
 	public DEGamePanel() {
@@ -46,8 +41,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		om = new DEObjectManager();
 
 		grid = new DEObject[rows][cols];
-
-		//state[r.nextInt(cols - 1) + 1][r.nextInt(rows)] = ab;
+		
+		 state[r.nextInt(cols) ][r.nextInt(rows-1)+ 1] = ab;
 
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
@@ -61,36 +56,129 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 	// Methods
 	public void paintComponent(Graphics g) {
 		om.draw(g);
-		//repaint();
+		// repaint();
 	}
+
+	
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
+//	all
+//	of
+//	this
+//	stuff
+//	is
+//	for
+//	jeffery
+//	the
+//	macho
+//	man
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
-		state[jefRow][jefCol] = empty;
+		System.out.println(jefRow + " " + jefCol);
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			
-			jefCol++;
-			state[jefRow][jefCol] = jef;
-			grid[jefRow][jefCol].setRowPos(jefRow, jefCol);
 
+			if (jefCol < (cols - 1)) {
+
+				state[jefRow][jefCol] = empty;
+
+				grid[jefRow][jefCol].state(empty);
+
+				jefCol++;
+
+				grid[jefRow][jefCol].state(jef);
+
+				state[jefRow][jefCol] = jef;
+			}
+		}
+
+		else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+
+			if (jefCol > 0) {
+
+				state[jefRow][jefCol] = empty;
+
+				grid[jefRow][jefCol].state(empty);
+				
+				jefCol--;
+				
+				grid[jefRow][jefCol].state(jef);
+
+				state[jefRow][jefCol] = jef;
+			}
+		}
+
+		else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+
+			if (jefRow < (rows - 1)) {
+
+				state[jefRow][jefCol] = empty;
+
+				grid[jefRow][jefCol].state(empty);
+				
+				jefRow++;
+				
+				grid[jefRow][jefCol].state(jef);
+
+				state[jefRow][jefCol] = jef;
+			}
+		}
+
+		else if (e.getKeyCode() == KeyEvent.VK_UP) {
+
+			if (jefRow > 0) {
+				state[jefRow][jefCol] = empty;
+
+				grid[jefRow][jefCol].state(empty);
+				
+				jefRow--;
+
+				grid[jefRow][jefCol].state(jef);
+
+				state[jefRow][jefCol] = jef;
+			}
 		}
 
 		repaint();
 
+	}
+
+
+
+
+
+
+
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+
+
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
