@@ -5,7 +5,7 @@ import java.util.Random;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class DEObject {
-
+ 
 	// Member Variables
 
 	int x;

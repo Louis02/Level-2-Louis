@@ -18,7 +18,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	static final int empty = 0;
 
-	static final int ab = 1;;
+	static final int ab = 1;
 
 	static final int jef = 2;
 
@@ -30,10 +30,17 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	Random r = new Random();
 
-	int[][] state = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+	int[][] state = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			};
 
 	// Constructor
 	public DEGamePanel() {
@@ -53,7 +60,6 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 			}
 		}
-
 	}
 
 	
