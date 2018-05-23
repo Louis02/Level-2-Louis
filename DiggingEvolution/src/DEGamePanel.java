@@ -25,22 +25,15 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	int jefCol = 4;
 
 	int jefRow = 0;
-	
 
+	int count = 0;
 
 	Random r = new Random();
 
-	int[][] state = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			};
+	int[][] state = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
 
 	// Constructor
 	public DEGamePanel() {
@@ -48,9 +41,13 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		om = new DEObjectManager();
 
 		grid = new DEObject[rows][cols];
-		
-		 state[r.nextInt(cols) ][r.nextInt(rows-1)+ 1] = ab;
 
+		start();
+
+	}
+
+	public void start() {
+		state[r.nextInt(rows - 1) + 1][(r.nextInt(cols))] = ab;
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 
@@ -62,36 +59,25 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
 	// Methods
 	public void paintComponent(Graphics g) {
 		om.draw(g);
 		// repaint();
 	}
 
-	
-
 	@Override
-//	all
-//	of
-//	this
-//	stuff
-//	is
-//	for
-//	jeffery
-//	the
-//	macho
-//	man
+	// all
+	// of
+	// this
+	// stuff
+	// is
+	// for
+	// jeffery
+	// the
+	// macho
+	// man
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(jefRow + " " + jefCol);
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 
@@ -103,9 +89,14 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 				jefCol++;
 
+				if (state[jefRow][jefCol] == ab) {
+					System.out.println("found him");
+				}
+
 				grid[jefRow][jefCol].state(jef);
 
 				state[jefRow][jefCol] = jef;
+				count++;
 			}
 		}
 
@@ -116,12 +107,16 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				state[jefRow][jefCol] = empty;
 
 				grid[jefRow][jefCol].state(empty);
-				
+
 				jefCol--;
-				
+				if (state[jefRow][jefCol] == ab) {
+					System.out.println("found him");
+				}
+
 				grid[jefRow][jefCol].state(jef);
 
 				state[jefRow][jefCol] = jef;
+				count++;
 			}
 		}
 
@@ -132,12 +127,16 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				state[jefRow][jefCol] = empty;
 
 				grid[jefRow][jefCol].state(empty);
-				
+
 				jefRow++;
-				
+				if (state[jefRow][jefCol] == ab) {
+					System.out.println("found him");
+				}
+
 				grid[jefRow][jefCol].state(jef);
 
 				state[jefRow][jefCol] = jef;
+				count++;
 			}
 		}
 
@@ -147,44 +146,39 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				state[jefRow][jefCol] = empty;
 
 				grid[jefRow][jefCol].state(empty);
-				
+
 				jefRow--;
+				if (state[jefRow][jefCol] == ab) {
+					System.out.println("found him");
+				}
 
 				grid[jefRow][jefCol].state(jef);
 
 				state[jefRow][jefCol] = jef;
+				count++;
 			}
 		}
+		System.out.println("        " + count);
+		if (count > 13) {
+			count = 0;
+			System.out.println("sgncfhp");
+			om.restart();
+			start();
 
+		}
 		repaint();
 
 	}
 
-
-
-
-
-
-
-
-
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
-
-
-
-
-
-
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -60,7 +60,7 @@ public class DEObject {
 		if (DEGamePanel.jef == state) {
 			g.setColor(Color.red);
 			g.fillRect(x, y, width, height);
-			System.out.println(this.x + " " + this.y + " " + this.row + " " + this.col);
+			
 		}
 
 	}

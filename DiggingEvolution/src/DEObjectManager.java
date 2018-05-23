@@ -23,4 +23,7 @@ public class DEObjectManager {
 			 o.draw(g);
 		 }
 	}
+	public void restart() {
+		objects.clear();
+	}
 }
