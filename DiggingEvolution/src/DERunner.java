@@ -1,32 +1,38 @@
- import java.awt.Component;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-public class DERunner {
+class DERunner {
 
 	// Member Variables
-
+JFrame frame;
 	final static int width = 400;
 
 	final static int height = 500;
 
+	DEGamePanel gp;
+
 	// Main
 	public static void main(String[] args) {
+		new DERunner();
 
-		JFrame frame = new JFrame();
+	}
 
-		DEGamePanel gp = new DEGamePanel();
-
-		frame.add(gp);
-
+	DERunner() {
+		frame = new JFrame();
+		gp = new DEGamePanel();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		frame.add(gp);
 		frame.setVisible(true);
-		
+
 		frame.addKeyListener(gp);
 
 		frame.setSize(width, height);
+
+	}
+
+	public void startNewGame() {
+		frame.dispose();
+		new DERunner();
 
 	}
 }
