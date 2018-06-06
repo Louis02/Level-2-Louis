@@ -30,10 +30,12 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	Random r = new Random();
 
-	int[][] state = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	final int[][] initState = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+	
+	int [][] state = new int[rows][cols];
 
 	// Constructor
 	public DEGamePanel() {
@@ -47,16 +49,29 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	}
 
 	public void start() {
+		
+		for(int r = 0; r< rows; r++) {
+			for(int c  = 0; c<cols; c++) {
+				state[r][c] = initState[r][c];
+			}
+		}
+		jefRow = 
 		state[r.nextInt(rows - 1) + 1][(r.nextInt(cols))] = ab;
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 
 				grid[r][c] = new DEObject(DERunner.width / cols, (DERunner.height - 20) / rows, r, c, state[r][c]);
+				if(state[r][c] == jef) {
+jefRow = 0;
+jefCol = 4;
+				}
 
 				om.addDEObject(grid[r][c]);
 
 			}
 		}
+		
+		
 	}
 
 	// Methods
