@@ -21,6 +21,8 @@ public class DEObject {
 	int height;
 
 	int state;
+	
+	boolean abVisible;
 
 	Random r;
 
@@ -52,10 +54,14 @@ public class DEObject {
 			g.fillRect(x, y, width, height);
 
 		} else if (DEGamePanel.ab == state) {
-
+			if(abVisible) {
 			g.setColor(new Color(200, 100, 0));
+			}
+			else if(!abVisible) {
+				g.setColor(new Color(90,44,30));
+			}
 			g.fillRect(x, y, width, height);
-
+			
 		}
 		if (DEGamePanel.jef == state) {
 			g.setColor(Color.red);
@@ -63,6 +69,9 @@ public class DEObject {
 			
 		}
 
+	}
+	public void setVisible(boolean v) {
+		this.abVisible=v;
 	}
 
 	public void state(int state) {

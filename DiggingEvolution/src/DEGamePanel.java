@@ -27,15 +27,18 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	int jefRow = 0;
 
 	int count = 0;
-
+	
+	int abRow;
+	
+	int abCol;
 	Random r = new Random();
 
-	final int[][] initState = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	final int[][] initState = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
-	
-	int [][] state = new int[rows][cols];
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+
+	int[][] state = new int[rows][cols];
 
 	// Constructor
 	public DEGamePanel() {
@@ -49,29 +52,31 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	}
 
 	public void start() {
-		
-		for(int r = 0; r< rows; r++) {
-			for(int c  = 0; c<cols; c++) {
+
+		for (int r = 0; r < rows; r++) {
+			for (int c = 0; c < cols; c++) {
 				state[r][c] = initState[r][c];
 			}
-		}
-		jefRow = 
-		state[r.nextInt(rows - 1) + 1][(r.nextInt(cols))] = ab;
+		}	
+		count = 0;
+		abRow = r.nextInt(rows - 1) + 1;
+		abCol = r.nextInt(cols);
+		state[abRow][abCol] = ab;
+	
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 
 				grid[r][c] = new DEObject(DERunner.width / cols, (DERunner.height - 20) / rows, r, c, state[r][c]);
-				if(state[r][c] == jef) {
-jefRow = 0;
-jefCol = 4;
+				if (state[r][c] == jef) {
+					jefRow = r;
+					jefCol = c;
 				}
 
 				om.addDEObject(grid[r][c]);
 
 			}
 		}
-		
-		
+
 	}
 
 	// Methods
@@ -174,12 +179,18 @@ jefCol = 4;
 			}
 		}
 		System.out.println("        " + count);
-		if (count > 13) {
+		if (count > 12) {
 			count = 0;
-			System.out.println("sgncfhp");
+			System.out.println("aaaaaaaaaaa");
 			om.restart();
 			start();
 
+		}
+		else if(jefRow == abRow && jefCol == abCol) {
+			System.out.println("tttttttttttt");
+			
+			om.restart();
+			start();
 		}
 		repaint();
 
