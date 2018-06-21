@@ -2,10 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 public class DEObject {
- 
+
 	// Member Variables
 
 	int x;
@@ -21,8 +19,8 @@ public class DEObject {
 	int height;
 
 	int state;
-	
-	boolean abVisible;
+
+	static int colors;
 
 	Random r;
 
@@ -42,8 +40,6 @@ public class DEObject {
 
 	}
 
-
-
 	// Methods
 	public void draw(Graphics g) {
 
@@ -54,24 +50,31 @@ public class DEObject {
 			g.fillRect(x, y, width, height);
 
 		} else if (DEGamePanel.ab == state) {
-			if(abVisible) {
-			g.setColor(new Color(200, 100, 0));
+			if (colors == 1) {
+
+				g.setColor(new Color(200, 100, 0));
+
+			} else if (colors == 2) {
+
+				g.setColor(new Color(90, 44, 0));
+
 			}
-			else if(!abVisible) {
-				g.setColor(new Color(90,44,30));
-			}
+			// else if(colors == 3) {
+			// g.setColor(125, 75, 0);
+			// }
 			g.fillRect(x, y, width, height);
-			
+
 		}
 		if (DEGamePanel.jef == state) {
 			g.setColor(Color.red);
 			g.fillRect(x, y, width, height);
-			
+
 		}
 
 	}
-	public void setVisible(boolean v) {
-		this.abVisible=v;
+
+	public static void setVisible(boolean v) {
+		abVisible = v;
 	}
 
 	public void state(int state) {

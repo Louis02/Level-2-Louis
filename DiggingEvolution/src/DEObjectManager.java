@@ -7,6 +7,8 @@ public class DEObjectManager {
 
 	ArrayList<DEObject> objects;
 
+	private boolean close;
+
 	// Constructor
 	public DEObjectManager() {
 		objects = new ArrayList<DEObject>();
@@ -19,11 +21,13 @@ public class DEObjectManager {
 	}
 
 	public void draw(Graphics g) {
-		 for(DEObject o : objects) {
-			 o.draw(g);
-		 }
+		for (DEObject o : objects) {
+			o.draw(g);
+		}
 	}
+
 	public void restart() {
 		objects.clear();
 	}
+
 }

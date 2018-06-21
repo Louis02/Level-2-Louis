@@ -27,9 +27,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	int jefRow = 0;
 
 	int count = 0;
-	
+
 	int abRow;
-	
+
 	int abCol;
 	Random r = new Random();
 
@@ -57,12 +57,12 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			for (int c = 0; c < cols; c++) {
 				state[r][c] = initState[r][c];
 			}
-		}	
+		}
 		count = 0;
 		abRow = r.nextInt(rows - 1) + 1;
 		abCol = r.nextInt(cols);
 		state[abRow][abCol] = ab;
-	
+
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 
@@ -179,19 +179,24 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			}
 		}
 		System.out.println("        " + count);
-		if (count > 12) {
+		if (count > 13) {
 			count = 0;
 			System.out.println("aaaaaaaaaaa");
 			om.restart();
 			start();
 
-		}
-		else if(jefRow == abRow && jefCol == abCol) {
+		} else if (jefRow == abRow && jefCol == abCol) {
 			System.out.println("tttttttttttt");
-			
+
 			om.restart();
 			start();
 		}
+		if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) < 4) {
+			DEObject.setVisible(true);
+		} else {
+			DEObject.setVisible(false);
+		}
+
 		repaint();
 
 	}
