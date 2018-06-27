@@ -16,7 +16,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	DEObject[][] grid;
 
-	static final int empty = 0;
+	static final int emptyBottom = 0;
+
+	static final int emptyTop = 4;
 
 	static final int ab = 1;
 
@@ -33,7 +35,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	int abCol;
 	Random r = new Random();
 
-	final int[][] initState = { { 0, 0, 0, 0, 2, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	final int[][] initState = { { 4, 4, 4, 4, 2, 4, 4, 4, 4 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
@@ -103,9 +105,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 			if (jefCol < (cols - 1)) {
 
-				state[jefRow][jefCol] = empty;
+				state[jefRow][jefCol] = emptyBottom;
 
-				grid[jefRow][jefCol].state(empty);
+				grid[jefRow][jefCol].state(emptyBottom);
 
 				jefCol++;
 
@@ -124,9 +126,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 			if (jefCol > 0) {
 
-				state[jefRow][jefCol] = empty;
+				state[jefRow][jefCol] = emptyBottom;
 
-				grid[jefRow][jefCol].state(empty);
+				grid[jefRow][jefCol].state(emptyBottom);
 
 				jefCol--;
 				if (state[jefRow][jefCol] == ab) {
@@ -144,9 +146,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 			if (jefRow < (rows - 1)) {
 
-				state[jefRow][jefCol] = empty;
+				state[jefRow][jefCol] = emptyBottom;
 
-				grid[jefRow][jefCol].state(empty);
+				grid[jefRow][jefCol].state(emptyBottom);
 
 				jefRow++;
 				if (state[jefRow][jefCol] == ab) {
@@ -163,9 +165,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		else if (e.getKeyCode() == KeyEvent.VK_UP) {
 
 			if (jefRow > 0) {
-				state[jefRow][jefCol] = empty;
+				state[jefRow][jefCol] = emptyBottom;
 
-				grid[jefRow][jefCol].state(empty);
+				grid[jefRow][jefCol].state(emptyBottom);
 
 				jefRow--;
 				if (state[jefRow][jefCol] == ab) {
@@ -191,10 +193,20 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			om.restart();
 			start();
 		}
-		if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) < 4) {
-			DEObject.setVisible(true);
-		} else {
-			DEObject.setVisible(false);
+		if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 1) {
+			DEObject.setVisible(1);
+		}
+
+		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 2) {
+			DEObject.setVisible(2);
+		}
+
+		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 3) {
+			DEObject.setVisible(3);
+		}
+
+		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) >= 4) {
+			DEObject.setVisible(4);
 		}
 
 		repaint();
