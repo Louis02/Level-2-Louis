@@ -54,18 +54,18 @@ public class DEObject {
 
 	// Methods
 	public void draw(Graphics g) {
+		
+	
+		 if (DEGamePanel.emptyTop == state) {
 
-		if (DEGamePanel.emptyBottom == state) {
-
-			g.setColor(bottomState);
+			g.setColor(topState);
 
 			g.fillRect(x, y, width, height);
 
 		}
+		 else if (DEGamePanel.emptyBottom == state) {
 
-		else if (DEGamePanel.emptyTop == state) {
-
-			g.setColor(topState);
+			g.setColor(bottomState);
 
 			g.fillRect(x, y, width, height);
 
@@ -95,7 +95,7 @@ public class DEObject {
 			g.fillRect(x, y, width, height);
 
 		}
-
+		
 	}
 
 	public static void setVisible(int v) {

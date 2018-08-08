@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -33,6 +35,16 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	int abRow;
 
 	int abCol;
+
+	static final int startState = 0;
+
+	static final int gameState = 1;
+
+	static final int endState = 2;
+
+	int menuState = startState;
+	
+	Font titleFont = new Font ("Ariel", Font.BOLD, 20);
 	Random r = new Random();
 
 	final int[][] initState = { { 4, 4, 4, 4, 2, 4, 4, 4, 4 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -83,8 +95,18 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	// Methods
 	public void paintComponent(Graphics g) {
-		om.draw(g);
-		// repaint();
+		if (menuState == gameState) {
+			om.draw(g);
+
+		}
+		else if(menuState == startState) {
+			g.setColor(Color.blue);
+			g.fillRect(0, 0, DERunner.width, DERunner.height);
+			g.setColor(Color.white);
+			g.setFont(titleFont);
+			g.drawString("Welcome to Digging Evolution", 50, 25);
+		}
+		repaint();
 	}
 
 	@Override
@@ -100,7 +122,13 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	// man
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (menuState == gameState) {
+			gameStateKeys(e);
+		}
+		repaint();
+	}
 
+	private void gameStateKeys(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 
 			if (jefCol < (cols - 1)) {
@@ -208,9 +236,13 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) >= 4) {
 			DEObject.setVisible(4);
 		}
+		for (int i = 0; i < cols; i++) {
 
-		repaint();
-
+			if (state[0][i] != jef) {
+				state[0][i] = emptyTop;
+				grid[0][i].state(emptyTop);
+			}
+		}
 	}
 
 	@Override
