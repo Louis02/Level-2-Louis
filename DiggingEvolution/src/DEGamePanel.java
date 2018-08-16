@@ -44,7 +44,13 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	int menuState = startState;
 	
-	Font titleFont = new Font ("Ariel", Font.BOLD, 20);
+	Font titleFont = new Font ("Ariel", Font.BOLD, 22);
+	
+	Font instructionFont = new Font("Ariel", Font.PLAIN, 18 );
+	
+	boolean activeUser = false;
+	
+	String username = "";
 	Random r = new Random();
 
 	final int[][] initState = { { 4, 4, 4, 4, 2, 4, 4, 4, 4 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -101,10 +107,27 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		}
 		else if(menuState == startState) {
 			g.setColor(Color.blue);
+			
 			g.fillRect(0, 0, DERunner.width, DERunner.height);
+			
 			g.setColor(Color.white);
+			
 			g.setFont(titleFont);
-			g.drawString("Welcome to Digging Evolution", 50, 25);
+			g.drawString("Welcome to Digging Evolution", 30, 50);
+			
+			g.setFont(instructionFont);
+			g.drawString("Press 'Space' for Instructions", 78, 130);
+			g.drawString("Press 'Enter' to Start the Game", 70, 210);
+			g.drawString("Enter Username by pressing esc", 60, 290);
+			
+			g.setFont(titleFont);
+			g.drawString("Lets Get Started", 110, 410);
+			
+			g.setFont(instructionFont);
+			g.drawRect(30, 330, 340, 25);
+			g.drawString(username, 33, 349);
+	
+			
 		}
 		repaint();
 	}
@@ -125,8 +148,28 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		if (menuState == gameState) {
 			gameStateKeys(e);
 		}
+		else if(menuState == startState) {
+		
+			if(e.getKeyCode() == 27 || activeUser ) {
+				activeUser = true;
+				username += e.getKeyChar();
+			}
+			else if(!activeUser) {
+				//enter
+				if(e.getKeyCode()== 10) {
+					menuState = gameState;
+				}
+				//space
+				else if(e.getKeyCode() == 32) {
+					
+				}
+			}
+
+			
+		}
 		repaint();
 	}
+		
 
 	private void gameStateKeys(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
