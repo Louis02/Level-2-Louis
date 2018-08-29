@@ -48,6 +48,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	
 	Font instructionFont = new Font("Ariel", Font.PLAIN, 18 );
 	
+	Font loserFont = new Font("Ariel", Font.PLAIN, 50);
+	
 	boolean activeUser = false;
 	
 	String username = "";
@@ -118,7 +120,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			g.setFont(instructionFont);
 			g.drawString("Press 'Space' for Instructions", 78, 130);
 			g.drawString("Press 'Enter' to Start the Game", 70, 210);
-			g.drawString("Enter Username by pressing esc", 60, 290);
+			g.drawString("Enter Username by pressing 'Esc'", 60, 290);
 			
 			g.setFont(titleFont);
 			g.drawString("Lets Get Started", 110, 410);
@@ -126,8 +128,19 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			g.setFont(instructionFont);
 			g.drawRect(30, 330, 340, 25);
 			g.drawString(username, 33, 349);
-	
 			
+
+			
+		}
+		else if(menuState == endState) {
+			g.setColor(Color.YELLOW);
+			
+			g.fillRect(0, 0, DERunner.width, DERunner.height);
+			
+			g.setColor(Color.red);
+			
+			g.setFont(loserFont);
+			g.drawString("You Lost", 90, 50);
 		}
 		repaint();
 	}
@@ -255,15 +268,13 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		if (count > 13) {
 			count = 0;
 			System.out.println("aaaaaaaaaaa");
-			om.restart();
-			start();
+			menuState = endState; 
 
 		} else if (jefRow == abRow && jefCol == abCol) {
 			System.out.println("tttttttttttt");
 
 			om.restart();
-			start();
-		}
+			start();		}
 		if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 1) {
 			DEObject.setVisible(1);
 		}
