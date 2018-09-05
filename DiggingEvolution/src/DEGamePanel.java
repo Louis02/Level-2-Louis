@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class DEGamePanel extends JPanel implements KeyListener {
@@ -36,6 +37,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	int abCol;
 
+	Integer score = 0;
+
 	static final int startState = 0;
 
 	static final int gameState = 1;
@@ -43,15 +46,15 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	static final int endState = 2;
 
 	int menuState = startState;
-	
-	Font titleFont = new Font ("Ariel", Font.BOLD, 22);
-	
-	Font instructionFont = new Font("Ariel", Font.PLAIN, 18 );
-	
+
+	Font titleFont = new Font("Ariel", Font.BOLD, 22);
+
+	Font instructionFont = new Font("Ariel", Font.PLAIN, 18);
+
 	Font loserFont = new Font("Ariel", Font.PLAIN, 50);
-	
+
 	boolean activeUser = false;
-	
+
 	String username = "";
 	Random r = new Random();
 
@@ -106,41 +109,40 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		if (menuState == gameState) {
 			om.draw(g);
 
-		}
-		else if(menuState == startState) {
+		} else if (menuState == startState) {
 			g.setColor(Color.blue);
-			
+
 			g.fillRect(0, 0, DERunner.width, DERunner.height);
-			
+
 			g.setColor(Color.white);
-			
+
 			g.setFont(titleFont);
 			g.drawString("Welcome to Digging Evolution", 30, 50);
-			
+
 			g.setFont(instructionFont);
 			g.drawString("Press 'Space' for Instructions", 78, 130);
 			g.drawString("Press 'Enter' to Start the Game", 70, 210);
 			g.drawString("Enter Username by pressing 'Esc'", 60, 290);
-			
+
 			g.setFont(titleFont);
 			g.drawString("Lets Get Started", 110, 410);
-			
+
 			g.setFont(instructionFont);
 			g.drawRect(30, 330, 340, 25);
 			g.drawString(username, 33, 349);
-			
 
-			
-		}
-		else if(menuState == endState) {
+		} else if (menuState == endState) {
 			g.setColor(Color.YELLOW);
-			
+
 			g.fillRect(0, 0, DERunner.width, DERunner.height);
-			
+
 			g.setColor(Color.red);
-			
+
 			g.setFont(loserFont);
 			g.drawString("You Lost", 90, 50);
+
+			g.setFont(instructionFont);
+			g.drawString("Your score is " + score.toString(), 135, 90);
 		}
 		repaint();
 	}
@@ -160,29 +162,39 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		// TODO Auto-generated method stub
 		if (menuState == gameState) {
 			gameStateKeys(e);
-		}
-		else if(menuState == startState) {
+		} 
 		
-			if(e.getKeyCode() == 27 || activeUser ) {
+		else if (menuState == startState) {
+			
+			int key = e.getKeyCode();
+			
+			if (key == 27 || activeUser) {
+				
 				activeUser = true;
-				username += e.getKeyChar();
-			}
-			else if(!activeUser) {
-				//enter
-				if(e.getKeyCode()== 10) {
+				System.out.println(activeUser);
+				if (key != 27) {
+					username += e.getKeyChar();
+				}
+
+				else if (key == 27 && activeUser) {
+					activeUser = false;
+				}
+
+			} else if (!activeUser) {
+				// enter
+				if (e.getKeyCode() == 10) {
 					menuState = gameState;
 				}
-				//space
-				else if(e.getKeyCode() == 32) {
-					
+				// space
+				else if (e.getKeyCode() == 32) {
+					JOptionPane.showMessageDialog(null,
+							"Press Enter to start the game\nUse the arrow keys to move all directions\nThe object of the game is to search around the grid\nUntil a faint green square shows up and you must obtain it");
 				}
 			}
 
-			
 		}
 		repaint();
 	}
-		
 
 	private void gameStateKeys(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -197,6 +209,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 				if (state[jefRow][jefCol] == ab) {
 					System.out.println("found him");
+					score++;
 				}
 
 				grid[jefRow][jefCol].state(jef);
@@ -217,6 +230,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				jefCol--;
 				if (state[jefRow][jefCol] == ab) {
 					System.out.println("found him");
+					score++;
 				}
 
 				grid[jefRow][jefCol].state(jef);
@@ -237,6 +251,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				jefRow++;
 				if (state[jefRow][jefCol] == ab) {
 					System.out.println("found him");
+					score++;
 				}
 
 				grid[jefRow][jefCol].state(jef);
@@ -256,6 +271,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				jefRow--;
 				if (state[jefRow][jefCol] == ab) {
 					System.out.println("found him");
+					score++;
 				}
 
 				grid[jefRow][jefCol].state(jef);
@@ -268,13 +284,14 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		if (count > 13) {
 			count = 0;
 			System.out.println("aaaaaaaaaaa");
-			menuState = endState; 
+			menuState = endState;
 
 		} else if (jefRow == abRow && jefCol == abCol) {
 			System.out.println("tttttttttttt");
 
 			om.restart();
-			start();		}
+			start();
+		}
 		if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 1) {
 			DEObject.setVisible(1);
 		}
