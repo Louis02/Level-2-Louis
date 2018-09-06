@@ -162,25 +162,28 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		// TODO Auto-generated method stub
 		if (menuState == gameState) {
 			gameStateKeys(e);
-		} 
-		
+		}
+
 		else if (menuState == startState) {
-			
+
 			int key = e.getKeyCode();
-			
+
 			if (key == 27 || activeUser) {
 				
+				
+				
 				activeUser = true;
-				System.out.println(activeUser);
+
 				if (key != 27) {
 					username += e.getKeyChar();
 				}
-
-				else if (key == 27 && activeUser) {
+				else if (key == 47 && activeUser) {
+					System.out.println(e.getKeyCode());
 					activeUser = false;
 				}
+			}
 
-			} else if (!activeUser) {
+			else if (!activeUser) {
 				// enter
 				if (e.getKeyCode() == 10) {
 					menuState = gameState;
@@ -188,12 +191,12 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				// space
 				else if (e.getKeyCode() == 32) {
 					JOptionPane.showMessageDialog(null,
-							"Press Enter to start the game\nUse the arrow keys to move all directions\nThe object of the game is to search around the grid\nUntil a faint green square shows up and you must obtain it");
+							"Press Enter to start the game\nUse the arrow keys to move all directions\nThe object of the game is to search around the grid\nUntil a faint green square shows up and you must obtain it\nYou only have 13 moves to complete it");
 				}
 			}
 
+			repaint();
 		}
-		repaint();
 	}
 
 	private void gameStateKeys(KeyEvent e) {
