@@ -22,13 +22,19 @@ public class DEObject {
 
 	static int colors;
 
-	private static final Color visible = new Color(0, 150, 0);
+	private static final Color one = new Color(0, 50, 0);
 
-	private static final Color secondClosest = new Color(0, 75, 0);
+	private static final Color two = new Color(0, 103, 0);
 
-	private static final Color farthestAway = new Color(0, 50, 0);
+	private static final Color three = new Color(0, 175, 2);
+
+	private static final Color four = new Color(0, 250, 0);
+
+	private static final Color five = new Color(217, 250, 210);
 
 	private static final Color Invisible = new Color(90, 44, 16);
+
+	// next
 
 	private static final Color bottomState = new Color(90, 44, 16);
 
@@ -54,16 +60,14 @@ public class DEObject {
 
 	// Methods
 	public void draw(Graphics g) {
-		
-	
-		 if (DEGamePanel.emptyTop == state) {
+
+		if (DEGamePanel.emptyTop == state) {
 
 			g.setColor(topState);
 
 			g.fillRect(x, y, width, height);
 
-		}
-		 else if (DEGamePanel.emptyBottom == state) {
+		} else if (DEGamePanel.emptyBottom == state) {
 
 			g.setColor(bottomState);
 
@@ -74,18 +78,28 @@ public class DEObject {
 		else if (DEGamePanel.ab == state) {
 			if (colors == 1) {
 
-				g.setColor(visible);
+				g.setColor(one);
 
 			} else if (colors == 2) {
 
-				g.setColor(secondClosest);
+				g.setColor(two);
 
 			} else if (colors == 3) {
 
-				g.setColor(farthestAway);
+				g.setColor(three);
 
 			} else if (colors == 4) {
+
+				g.setColor(four);
+
+			} else if (colors == 5) {
+
+				g.setColor(five);
+
+			} else if (colors == 6) {
+
 				g.setColor(Invisible);
+
 			}
 			g.fillRect(x, y, width, height);
 
@@ -95,7 +109,7 @@ public class DEObject {
 			g.fillRect(x, y, width, height);
 
 		}
-		
+
 	}
 
 	public static void setVisible(int v) {

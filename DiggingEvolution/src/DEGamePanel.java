@@ -143,6 +143,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 			g.setFont(instructionFont);
 			g.drawString("Your score is " + score.toString(), 135, 90);
+
+			g.drawRect(100, 125, 200, 225);
 		}
 		repaint();
 	}
@@ -162,28 +164,23 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		// TODO Auto-generated method stub
 		if (menuState == gameState) {
 			gameStateKeys(e);
+
 		}
 
 		else if (menuState == startState) {
-
+			System.out.println(e.getKeyCode());
 			int key = e.getKeyCode();
 
 			if (key == 27 || activeUser) {
-				
-				
-				
-				activeUser = true;
 
 				if (key != 27) {
 					username += e.getKeyChar();
-				}
-				else if (key == 47 && activeUser) {
+				} else if (key == 47 && activeUser) {
 					System.out.println(e.getKeyCode());
 					activeUser = false;
-				}
-			}
 
-			else if (!activeUser) {
+				}
+			} else if (!activeUser) {
 				// enter
 				if (e.getKeyCode() == 10) {
 					menuState = gameState;
@@ -196,7 +193,10 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			}
 
 			repaint();
+		} else if (menuState == endState) {
+
 		}
+
 	}
 
 	private void gameStateKeys(KeyEvent e) {
@@ -286,15 +286,16 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		System.out.println("        " + count);
 		if (count > 13) {
 			count = 0;
-			System.out.println("aaaaaaaaaaa");
+			System.out.println("ending");
 			menuState = endState;
 
 		} else if (jefRow == abRow && jefCol == abCol) {
-			System.out.println("tttttttttttt");
+			System.out.println("found it");
 
 			om.restart();
 			start();
 		}
+
 		if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 1) {
 			DEObject.setVisible(1);
 		}
@@ -307,8 +308,14 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			DEObject.setVisible(3);
 		}
 
-		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) >= 4) {
+		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 4) {
 			DEObject.setVisible(4);
+		}
+
+		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) <= 5) {
+			DEObject.setVisible(5);
+		} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) >= 5) {
+			DEObject.setVisible(6);
 		}
 		for (int i = 0; i < cols; i++) {
 
@@ -317,6 +324,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				grid[0][i].state(emptyTop);
 			}
 		}
+
 	}
 
 	@Override
