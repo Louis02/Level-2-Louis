@@ -37,7 +37,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	int abCol;
 
-	Integer score = 0;
+	int score = 0;
 
 	static final int startState = 0;
 
@@ -46,6 +46,12 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	static final int endState = 2;
 
 	int menuState = startState;
+
+	static final int esc = 27;
+
+	int maxName = 15;
+
+	String user;
 
 	Font titleFont = new Font("Ariel", Font.BOLD, 22);
 
@@ -142,9 +148,25 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			g.drawString("You Lost", 90, 50);
 
 			g.setFont(instructionFont);
-			g.drawString("Your score is " + score.toString(), 135, 90);
-
+			g.drawString("Your score is " + ((Integer) score).toString(), 135, 90);
+			// rect
 			g.drawRect(100, 125, 200, 225);
+			// line
+			g.drawRect(250, 125, 1, 225);
+
+			if (user.length() > maxName) {
+
+				g.drawString(user.substring(0, maxName), 110, 155);
+			}
+			else {
+				g.drawString(user, 110, 155);
+			}
+
+			g.drawString(((Integer) score).toString(), 260, 155);
+			
+			g.setFont(titleFont);
+			g.drawString("Press Enter to Restart", 78, 400);
+			g.drawString("Better Luck Next Time", 78, 450);
 		}
 		repaint();
 	}
@@ -168,19 +190,21 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		}
 
 		else if (menuState == startState) {
-			System.out.println(e.getKeyCode());
+
 			int key = e.getKeyCode();
 
-			if (key == 27 || activeUser) {
+			if (key == esc) {
 
-				if (key != 27) {
-					username += e.getKeyChar();
-				} else if (key == 47 && activeUser) {
-					System.out.println(e.getKeyCode());
-					activeUser = false;
+				activeUser = !activeUser;
 
-				}
-			} else if (!activeUser) {
+			} else if (activeUser) {
+				user = username += ((Character) e.getKeyChar()).toString();
+
+			}
+
+			// ignore
+			// makes not user name things work
+			else if (!activeUser) {
 				// enter
 				if (e.getKeyCode() == 10) {
 					menuState = gameState;
@@ -193,8 +217,11 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			}
 
 			repaint();
-		} else if (menuState == endState) {
-
+		}
+		if (menuState == endState) {
+			if(e.getKeyCode()==10) {
+				menuState = startState;
+			}
 		}
 
 	}

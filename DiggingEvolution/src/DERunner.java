@@ -27,6 +27,7 @@ JFrame frame;
 		frame.addKeyListener(gp);
 
 		frame.setSize(width, height);
+		frame.setResizable(false);
 
 	}
 

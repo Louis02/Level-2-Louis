@@ -30,7 +30,7 @@ public class DEObject {
 
 	private static final Color four = new Color(0, 250, 0);
 
-	private static final Color five = new Color(217, 250, 210);
+	
 
 	private static final Color Invisible = new Color(90, 44, 16);
 
@@ -91,10 +91,6 @@ public class DEObject {
 			} else if (colors == 4) {
 
 				g.setColor(four);
-
-			} else if (colors == 5) {
-
-				g.setColor(five);
 
 			} else if (colors == 6) {
 
