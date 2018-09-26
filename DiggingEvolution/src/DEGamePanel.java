@@ -59,6 +59,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	Font loserFont = new Font("Ariel", Font.PLAIN, 50);
 
+	int[] leaderBoard = new int[7];
+
 	boolean activeUser = false;
 
 	String username = "";
@@ -157,13 +159,12 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			if (user.length() > maxName) {
 
 				g.drawString(user.substring(0, maxName), 110, 155);
-			}
-			else {
+
+				user = " ";
+			} else {
 				g.drawString(user, 110, 155);
 			}
 
-			g.drawString(((Integer) score).toString(), 260, 155);
-			
 			g.setFont(titleFont);
 			g.drawString("Press Enter to Restart", 78, 400);
 			g.drawString("Better Luck Next Time", 78, 450);
@@ -219,7 +220,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			repaint();
 		}
 		if (menuState == endState) {
-			if(e.getKeyCode()==10) {
+			if (e.getKeyCode() == 10) {
 				menuState = startState;
 			}
 		}
@@ -323,27 +324,31 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			start();
 		}
 
-		if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 1) {
-			DEObject.setVisible(1);
-		}
 
-		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 2) {
-			DEObject.setVisible(2);
-		}
 
-		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 3) {
-			DEObject.setVisible(3);
-		}
+			if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) >= 5) {
+				DEObject.setVisible(6);
+			} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 1) {
+				DEObject.setVisible(1);
+			}
 
-		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 4) {
-			DEObject.setVisible(4);
-		}
+			else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 2) {
+				DEObject.setVisible(2);
+			}
 
-		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) <= 5) {
-			DEObject.setVisible(5);
-		} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) >= 5) {
-			DEObject.setVisible(6);
-		}
+			else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 3) {
+				DEObject.setVisible(3);
+			}
+
+			else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 4) {
+				DEObject.setVisible(4);
+			}
+
+			else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) <= 5) {
+				DEObject.setVisible(5);
+			}
+		
+
 		for (int i = 0; i < cols; i++) {
 
 			if (state[0][i] != jef) {

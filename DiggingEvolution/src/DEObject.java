@@ -22,21 +22,21 @@ public class DEObject {
 
 	static int colors;
 
-	private static final Color one = new Color(0, 50, 0);
+	private static final Color four = new Color(200, 85, 50);
 
-	private static final Color two = new Color(0, 103, 0);
+	private static final Color three = new Color(119, 85, 80);
 
-	private static final Color three = new Color(0, 175, 2);
+	private static final Color two = new Color(119, 85, 100);
 
-	private static final Color four = new Color(0, 250, 0);
+	private static final Color one = new Color(119, 85, 115);
 
 	
 
-	private static final Color Invisible = new Color(90, 44, 16);
+	private static final Color Invisible = new Color(119, 85, 34);
 
 	// next
 
-	private static final Color bottomState = new Color(90, 44, 16);
+	private static final Color bottomState = new Color(119, 85, 34);
 
 	private static final Color topState = new Color(200, 100, 100);
 
