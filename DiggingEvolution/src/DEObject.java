@@ -21,16 +21,15 @@ public class DEObject {
 	int state;
 
 	static int colors;
+	private static final Color five = new Color(119, 85, 35);
 
-	private static final Color four = new Color(200, 85, 50);
+	private static final Color four = new Color(119, 85, 50);
 
 	private static final Color three = new Color(119, 85, 80);
 
 	private static final Color two = new Color(119, 85, 100);
 
 	private static final Color one = new Color(119, 85, 115);
-
-	
 
 	private static final Color Invisible = new Color(119, 85, 34);
 
@@ -91,6 +90,10 @@ public class DEObject {
 			} else if (colors == 4) {
 
 				g.setColor(four);
+
+			} else if (colors == 5) {
+
+				g.setColor(five);
 
 			} else if (colors == 6) {
 

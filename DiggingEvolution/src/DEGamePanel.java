@@ -74,6 +74,15 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	int[][] state = new int[rows][cols];
 
 	// Constructor
+	public void restart() {
+		username = "";
+		om = new DEObjectManager();
+
+		grid = new DEObject[rows][cols];
+
+		start();
+	}
+
 	public DEGamePanel() {
 
 		om = new DEObjectManager();
@@ -152,22 +161,35 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			g.setFont(instructionFont);
 			g.drawString("Your score is " + ((Integer) score).toString(), 135, 90);
 			// rect
-			g.drawRect(100, 125, 200, 225);
+			g.drawRect(100, 125, 200, 217);
 			// line
 			g.drawRect(250, 125, 1, 225);
+			g.drawRect(100, 148, 200, 1);
+			g.drawRect(100, 171, 200, 1);
+			g.drawRect(100, 194, 200, 1);
+			g.drawRect(100, 217, 200, 1);
+			g.drawRect(100, 240, 200, 1);
+			g.drawRect(100, 263, 200, 1);
+			g.drawRect(100, 286, 200, 1);
+			g.drawRect(100, 309, 200, 1);
+			g.drawRect(100, 342, 200, 1);
 
 			if (user.length() > maxName) {
 
 				g.drawString(user.substring(0, maxName), 110, 155);
-
+				g.drawString("" + score, 110, 200);
 				user = " ";
 			} else {
-				g.drawString(user, 110, 155);
+				g.drawString(user, 110, 145);
+				g.drawString("" + score, 260, 145);
+				g.drawString(user, 110, 165);
+				g.drawString("" + score, 260, 165);
 			}
 
 			g.setFont(titleFont);
 			g.drawString("Press Enter to Restart", 78, 400);
 			g.drawString("Better Luck Next Time", 78, 450);
+
 		}
 		repaint();
 	}
@@ -209,6 +231,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				// enter
 				if (e.getKeyCode() == 10) {
 					menuState = gameState;
+
 				}
 				// space
 				else if (e.getKeyCode() == 32) {
@@ -222,6 +245,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		if (menuState == endState) {
 			if (e.getKeyCode() == 10) {
 				menuState = startState;
+				restart();
 			}
 		}
 
@@ -311,6 +335,27 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				count++;
 			}
 		}
+
+		if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 5) {
+			DEObject.setVisible(5);
+		}
+
+		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 4) {
+			DEObject.setVisible(4);
+		} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 3) {
+			DEObject.setVisible(3);
+		} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 2) {
+			DEObject.setVisible(2);
+		}
+
+		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 1) {
+			DEObject.setVisible(1);
+		}
+
+		else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) >= 5) {
+			DEObject.setVisible(6);
+		}
+
 		System.out.println("        " + count);
 		if (count > 13) {
 			count = 0;
@@ -323,31 +368,6 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			om.restart();
 			start();
 		}
-
-
-
-			if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) >= 5) {
-				DEObject.setVisible(6);
-			} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 1) {
-				DEObject.setVisible(1);
-			}
-
-			else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 2) {
-				DEObject.setVisible(2);
-			}
-
-			else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 3) {
-				DEObject.setVisible(3);
-			}
-
-			else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 4) {
-				DEObject.setVisible(4);
-			}
-
-			else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) <= 5) {
-				DEObject.setVisible(5);
-			}
-		
 
 		for (int i = 0; i < cols; i++) {
 
