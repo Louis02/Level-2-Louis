@@ -75,7 +75,13 @@ public class DEObject {
 		}
 
 		else if (DEGamePanel.ab == state) {
-			if (colors == 1) {
+			
+			 if (colors == 6) {
+
+				g.setColor(bottomState);
+
+			}
+			 else if (colors == 1) {
 
 				g.setColor(one);
 
@@ -95,11 +101,7 @@ public class DEObject {
 
 				g.setColor(five);
 
-			} else if (colors == 6) {
-
-				g.setColor(Invisible);
-
-			}
+			} 
 			g.fillRect(x, y, width, height);
 
 		}
