@@ -31,13 +31,13 @@ public class DEObject {
 
 	private static final Color one = new Color(119, 85, 115);
 
-	private static final Color Invisible = new Color(119, 85, 34);
+	private static final Color invisible = new Color(119, 85, 34);
 
 	// next
 
-	private static final Color bottomState = new Color(119, 85, 34);
-
 	private static final Color topState = new Color(200, 100, 100);
+
+	static final Color[] colorList = { one, two, three, four, five, invisible };
 
 	Random r;
 
@@ -68,40 +68,16 @@ public class DEObject {
 
 		} else if (DEGamePanel.emptyBottom == state) {
 
-			g.setColor(bottomState);
+			g.setColor(invisible);
 
 			g.fillRect(x, y, width, height);
 
 		}
 
 		else if (DEGamePanel.ab == state) {
-			
-			 if (colors == 6) {
 
-				g.setColor(bottomState);
+			g.setColor(colorList[colors]);
 
-			}
-			 else if (colors == 1) {
-
-				g.setColor(one);
-
-			} else if (colors == 2) {
-
-				g.setColor(two);
-
-			} else if (colors == 3) {
-
-				g.setColor(three);
-
-			} else if (colors == 4) {
-
-				g.setColor(four);
-
-			} else if (colors == 5) {
-
-				g.setColor(five);
-
-			} 
 			g.fillRect(x, y, width, height);
 
 		}

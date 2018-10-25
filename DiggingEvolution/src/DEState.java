@@ -1,4 +1,3 @@
-
 public class DEState {
 int[][] gameState;
 DEJeff jeff;

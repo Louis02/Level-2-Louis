@@ -3,10 +3,13 @@ import javax.swing.JFrame;
 class DERunner {
 
 	// Member Variables
-JFrame frame;
-	final static int width = 400;
+	JFrame frame;
+	final static int numCols = 9;
+	final static int numWidth = 45;
+	final static int width = numCols * numWidth;
+final static int numRows = 10;
 
-	final static int height = 500;
+	final static int height = numRows*numWidth;
 
 	DEGamePanel gp;
 
@@ -26,7 +29,7 @@ JFrame frame;
 
 		frame.addKeyListener(gp);
 
-		frame.setSize(width, height);
+		frame.setSize(width, height + numWidth);
 		frame.setResizable(false);
 
 	}

@@ -41,6 +41,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	int score = 0;
 
+	int lastScore = 0;
+
 	static final int startState = 0;
 
 	static final int gameState = 1;
@@ -52,6 +54,10 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	static final int esc = 27;
 
 	int maxName = 15;
+	
+	int level = 1;
+	
+	static final int mult = 5;
 
 	ArrayList<LeaderBoard> names = new ArrayList<LeaderBoard>();
 
@@ -88,35 +94,47 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 		start();
 	}
+	//Color setter
+	//Color setter
+	//Color setter
+	//Color setter
+	//Color setter
+	//Color setter
+	//Color setter
+	//Color setter
+	//Color setter
+	//Color setter
+	//Color setter
+	//Color setter
+	public void colorSetter() 
+	{
+		int dist = Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol);
+		if(dist>5) {
+			dist = 6;
+		}
+		DEObject.setVisible(dist-1);
+		
+	}
+	//End of Color setter
+	//End of Color setter
+	//End of Color setter
+	//End of Color setter
+	//End of Color setter
+	//End of Color setter
+	//End of Color setter
+	//End of Color setter
+	//End of Color setter
+	//End of Color setter
 
-	public void colorSetter() {
-		if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 5) {
-
-			DEObject.setVisible(5);
-
-		} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 4) {
-
-			DEObject.setVisible(4);
-
-		} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 3) {
-
-			DEObject.setVisible(3);
-
-		} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 2) {
-
-			DEObject.setVisible(2);
-
-		} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) == 1) {
-
-			DEObject.setVisible(1);
-
-		} else if (Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol) >= 6) {
-
-			DEObject.setVisible(6);
-
+	
+	public void levelMult () {
+		if(score>=(level*mult)) {
+			level++;
 		}
 	}
-
+	
+	
+	
 	public DEGamePanel() {
 
 		om = new DEObjectManager();
@@ -156,12 +174,23 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	}
 
 	// Methods
+	// Methods
+	// Methods
+	// Methods
+	// Methods
+	// Methods
+	// Methods
+	// Methods
+	// Methods
+	// Methods
+	// Methods
+	// Methods
 	public void paintComponent(Graphics g) {
 		if (menuState == gameState) {
 			om.draw(g);
-
+g.setColor(Color.red);
+g.drawString("Your Level is " + (level*mult), 390, 510);
 		}
-
 		else if (menuState == startState) {
 			g.setColor(Color.blue);
 
@@ -195,12 +224,12 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			g.drawString("You Lost", 90, 50);
 
 			g.setFont(instructionFont);
-			g.drawString("Your score is " + ((Integer) score).toString(), 135, 90);
+			g.drawString("Your score is " + ((Integer) lastScore).toString(), 135, 90);
 
 			// rect
-			g.drawRect(100, 125, 200, 206);
+			g.drawRect(100, 125, 200, 229);
 			// line
-			g.drawRect(250, 125, 1, 206);
+			g.drawRect(250, 125, 1, 229);
 			g.drawRect(100, 148, 200, 1);
 			g.drawRect(100, 171, 200, 1);
 			g.drawRect(100, 194, 200, 1);
@@ -209,14 +238,15 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			g.drawRect(100, 263, 200, 1);
 			g.drawRect(100, 286, 200, 1);
 			g.drawRect(100, 309, 200, 1);
+			g.drawRect(100, 332, 200, 1);
 			// g.drawRect(100, 342, 200, 1);
 			Collections.sort(names);
 			int numMax = names.size();
-			if(numMax>10) {
-				numMax =10;
+			if (numMax > 10) {
+				numMax = 10;
 			}
 			for (int i = 0; i < numMax; i++) {
-				
+
 				if (user.length() > maxName) {
 
 					g.drawString(names.get(i).getName().substring(0, maxName), 110, 155);
@@ -224,10 +254,12 @@ public class DEGamePanel extends JPanel implements KeyListener {
 					user = " ";
 				} else {
 
-					g.drawString(names.get(i).getName(), 110, 145+ (i*23));
-					g.drawString("" + names.get(i).getScore(), 260, 145 + (i*23));
+					g.drawString(names.get(i).getName(), 110, 145 + (i * 23));
+					g.drawString("" + names.get(i).getScore(), 260, 145 + (i * 23));
 
 				}
+				score = 0;
+				level = 1;
 			}
 			g.setFont(titleFont);
 			g.drawString("Press Enter to Restart", 78, 400);
@@ -306,8 +338,10 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				jefCol++;
 
 				if (state[jefRow][jefCol] == ab) {
+					levelMult();
 					System.out.println("found him");
 					score++;
+					
 				}
 
 				grid[jefRow][jefCol].state(jef);
@@ -327,6 +361,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 				jefCol--;
 				if (state[jefRow][jefCol] == ab) {
+					levelMult();
 					System.out.println("found him");
 					score++;
 				}
@@ -348,6 +383,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 				jefRow++;
 				if (state[jefRow][jefCol] == ab) {
+					levelMult();
 					System.out.println("found him");
 					score++;
 				}
@@ -368,6 +404,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 				jefRow--;
 				if (state[jefRow][jefCol] == ab) {
+					levelMult();
 					System.out.println("found him");
 					score++;
 				}
@@ -385,6 +422,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			count = 0;
 			System.out.println("ending");
 			menuState = endState;
+			lastScore = score;
 			names.add(new LeaderBoard(username, score));
 
 		} else if (jefRow == abRow && jefCol == abCol) {
