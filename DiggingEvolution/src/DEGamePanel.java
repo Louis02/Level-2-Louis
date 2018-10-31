@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -43,6 +44,10 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	int lastScore = 0;
 
+	JFrame f;
+
+	int startingColor = 5;
+
 	static final int startState = 0;
 
 	static final int gameState = 1;
@@ -54,9 +59,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	static final int esc = 27;
 
 	int maxName = 15;
-	
+
 	int level = 1;
-	
+
 	static final int mult = 5;
 
 	ArrayList<LeaderBoard> names = new ArrayList<LeaderBoard>();
@@ -85,7 +90,6 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	int[][] state = new int[rows][cols];
 
-	// Constructor
 	public void restart() {
 		username = "";
 		om = new DEObjectManager();
@@ -94,49 +98,55 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 		start();
 	}
-	//Color setter
-	//Color setter
-	//Color setter
-	//Color setter
-	//Color setter
-	//Color setter
-	//Color setter
-	//Color setter
-	//Color setter
-	//Color setter
-	//Color setter
-	//Color setter
-	public void colorSetter() 
-	{
+
+	// Color setter
+	// Color setter
+	// Color setter
+	// Color setter
+	// Color setter
+	// Color setter
+	// Color setter
+	// Color setter
+	// Color setter
+	// Color setter
+	// Color setter
+	// Color setter
+	public void colorSetter() {
 		int dist = Math.abs(jefRow - abRow) + Math.abs(jefCol - abCol);
-		if(dist>5) {
+		if (dist > 5) {
 			dist = 6;
 		}
-		DEObject.setVisible(dist-1);
-		
-	}
-	//End of Color setter
-	//End of Color setter
-	//End of Color setter
-	//End of Color setter
-	//End of Color setter
-	//End of Color setter
-	//End of Color setter
-	//End of Color setter
-	//End of Color setter
-	//End of Color setter
+		if (dist - 1 > startingColor) {
 
-	
-	public void levelMult () {
-		if(score>=(level*mult)) {
+			DEObject.setVisible(5);
+		} else {
+			DEObject.setVisible(dist - 1);
+		}
+
+		 System.out.println(level + " " + dist + " " + score);
+
+	}
+	// End of Color setter
+	// End of Color setter
+	// End of Color setter
+	// End of Color setter
+	// End of Color setter
+	// End of Color setter
+	// End of Color setter
+	// End of Color setter
+	// End of Color setter
+	// End of Color setter
+
+	public void levelMult() {
+		if (score >= (level * mult)) {
 			level++;
+			startingColor = 5 - (score / 5);
 		}
 	}
-	
-	
-	
-	public DEGamePanel() {
+	// Constructor
 
+	public DEGamePanel(JFrame f) {
+		this.f = f;
 		om = new DEObjectManager();
 
 		grid = new DEObject[rows][cols];
@@ -188,10 +198,14 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	public void paintComponent(Graphics g) {
 		if (menuState == gameState) {
 			om.draw(g);
-g.setColor(Color.red);
-g.drawString("Your Level is " + (level*mult), 390, 510);
-		}
-		else if (menuState == startState) {
+
+			g.setColor(Color.BLUE);
+			g.fillRect(0, DERunner.height - 20, DERunner.width, DERunner.blockSize);
+			g.setColor(Color.red);
+			g.drawString("Your Level is " + (level), 10, DERunner.height + 6);
+			g.drawString("Your Score is " + (score), 295, DERunner.height + 6);
+
+		} else if (menuState == startState) {
 			g.setColor(Color.blue);
 
 			g.fillRect(0, 0, DERunner.width, DERunner.height);
@@ -224,7 +238,7 @@ g.drawString("Your Level is " + (level*mult), 390, 510);
 			g.drawString("You Lost", 90, 50);
 
 			g.setFont(instructionFont);
-			g.drawString("Your score is " + ((Integer) lastScore).toString(), 135, 90);
+			g.drawString("Your score is " + ((Integer) lastScore).toString(), 135, 85);
 
 			// rect
 			g.drawRect(100, 125, 200, 229);
@@ -239,7 +253,7 @@ g.drawString("Your Level is " + (level*mult), 390, 510);
 			g.drawRect(100, 286, 200, 1);
 			g.drawRect(100, 309, 200, 1);
 			g.drawRect(100, 332, 200, 1);
-			// g.drawRect(100, 342, 200, 1);
+
 			Collections.sort(names);
 			int numMax = names.size();
 			if (numMax > 10) {
@@ -306,6 +320,8 @@ g.drawString("Your Level is " + (level*mult), 390, 510);
 				// enter
 				if (e.getKeyCode() == 10) {
 					menuState = gameState;
+					f.pack();
+					f.setSize(DERunner.width, DERunner.height + DERunner.blockSize);
 
 				}
 				// space
@@ -341,7 +357,7 @@ g.drawString("Your Level is " + (level*mult), 390, 510);
 					levelMult();
 					System.out.println("found him");
 					score++;
-					
+
 				}
 
 				grid[jefRow][jefCol].state(jef);
@@ -422,6 +438,8 @@ g.drawString("Your Level is " + (level*mult), 390, 510);
 			count = 0;
 			System.out.println("ending");
 			menuState = endState;
+			f.pack();
+			f.setSize(DERunner.width, DERunner.height);
 			lastScore = score;
 			names.add(new LeaderBoard(username, score));
 

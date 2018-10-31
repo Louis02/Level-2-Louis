@@ -21,7 +21,7 @@ public class DEObject {
 	int state;
 
 	static int colors;
-	private static final Color five = new Color(119, 85, 35);
+	private static final Color five = new Color(200, 85, 35);
 
 	private static final Color four = new Color(119, 85, 50);
 

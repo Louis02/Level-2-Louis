@@ -5,12 +5,11 @@ class DERunner {
 	// Member Variables
 	JFrame frame;
 	final static int numCols = 9;
-	final static int numWidth = 45;
-	final static int width = numCols * numWidth;
-final static int numRows = 10;
-
-	final static int height = numRows*numWidth;
-
+	final static int numRows = 10;
+	final static int blockSize = 45;
+	final static int width = numCols * blockSize;
+	final static int height = numRows * blockSize;
+	// final static int extraPanelY = height;
 	DEGamePanel gp;
 
 	// Main
@@ -21,15 +20,16 @@ final static int numRows = 10;
 
 	DERunner() {
 		frame = new JFrame();
-		gp = new DEGamePanel();
+		gp = new DEGamePanel(frame);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.add(gp);
 		frame.setVisible(true);
 
 		frame.addKeyListener(gp);
+		frame.pack();
+		frame.setSize(width, height);
 
-		frame.setSize(width, height + numWidth);
 		frame.setResizable(false);
 
 	}
