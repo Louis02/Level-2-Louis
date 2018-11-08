@@ -26,8 +26,7 @@ public class LeaderBoard implements Comparable<LeaderBoard> {
 		} else if (score < other.getScore()) {
 			return 1;
 
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}

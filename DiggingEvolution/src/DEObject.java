@@ -23,7 +23,7 @@ public class DEObject {
 	static int colors;
 	private static final Color five = new Color(200, 85, 35);
 
-	private static final Color four = new Color(119, 85, 50);
+	private static final Color four = new Color(119, 200, 50);
 
 	private static final Color three = new Color(119, 85, 80);
 

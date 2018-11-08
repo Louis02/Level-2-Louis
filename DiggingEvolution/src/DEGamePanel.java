@@ -3,10 +3,13 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -53,10 +56,14 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	static final int gameState = 1;
 
 	static final int endState = 2;
+	
+	static final int congratState = 3;
 
 	int menuState = startState;
 
 	static final int esc = 27;
+	
+	private static BufferedImage diggerGif;
 
 	int maxName = 15;
 
@@ -116,11 +123,11 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		if (dist > 5) {
 			dist = 6;
 		}
-		if (dist - 1 > startingColor) {
+		if (dist    > startingColor) {
 
 			DEObject.setVisible(5);
 		} else {
-			DEObject.setVisible(dist - 1);
+			DEObject.setVisible(dist -1);
 		}
 
 		 System.out.println(level + " " + dist + " " + score);
@@ -138,8 +145,40 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	// End of Color setter
 
 	public void levelMult() {
-		if (score >= (level * mult)) {
+	
+		//on big spaces make it * mult
+		//
+		//
+		//
+		//
+		//
+		//
+		///
+		//
+		//
+		///
+		///
+		///
+		//
+		///
+		//
+		///
+		///
+		///
+		//
+		///
+		//
+		///
+		//
+		//
+		///
+		
+		
+		if (score >= (level               )) {
 			level++;
+			menuState = congratState;
+			f.pack();
+			f.setSize(DERunner.width, DERunner.height);
 			startingColor = 5 - (score / 5);
 		}
 	}
@@ -148,7 +187,13 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	public DEGamePanel(JFrame f) {
 		this.f = f;
 		om = new DEObjectManager();
-
+		try {
+			//diggerGif = ImageIcon(getClass().getResource("giphy.gif").getIMage());
+				diggerGif= ImageIO.read(this.getClass().getResourceAsStream("giphy.gif"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		grid = new DEObject[rows][cols];
 
 		start();
@@ -278,6 +323,17 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			g.setFont(titleFont);
 			g.drawString("Press Enter to Restart", 78, 400);
 			g.drawString("Better Luck Next Time", 78, 450);
+
+		}
+		else if (menuState == congratState) {
+			g.setColor(Color.GREEN);
+			g.fillRect(0, 0, DERunner.width, DERunner.height);
+			g.setColor(Color.BLACK);
+			g.setFont(titleFont);
+			g.drawString("Congrats on beating level "+ (level-1), 45, 30);
+			g.setFont(instructionFont);
+			g.drawString("Press enter to go onto level "+ level, 80, 400);
+			g.drawImage(diggerGif, 75, 85, 250, 250, null);
 
 		}
 		repaint();
