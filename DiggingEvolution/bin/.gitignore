@@ -1,5 +1,6 @@
 /DEAbrikoos.class
 /DEGameObject.class
+/giphy.gif
 /DEGamePanel.class
 /DEJeff.class
 /DEObject.class
@@ -7,4 +8,6 @@
 /DERunner.class
 /DEState.class
 /LeaderBoard.class
-/giphy.gif
+/dirt.png
+/grass.png
+/sky.png

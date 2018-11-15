@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -10,6 +11,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -49,21 +51,27 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	JFrame f;
 
-	int startingColor = 5;
+	int startingColor = 6;
 
 	static final int startState = 0;
 
 	static final int gameState = 1;
 
 	static final int endState = 2;
-	
+
 	static final int congratState = 3;
 
 	int menuState = startState;
 
 	static final int esc = 27;
+
+	private static Image diggerGif;
+
+	 static BufferedImage skyPic;
+
+	 static BufferedImage grassPic;
 	
-	private static BufferedImage diggerGif;
+	 static BufferedImage dirtPic;
 
 	int maxName = 15;
 
@@ -123,14 +131,14 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		if (dist > 5) {
 			dist = 6;
 		}
-		if (dist    > startingColor) {
-
+		 if (dist > startingColor) {
+			 
 			DEObject.setVisible(5);
 		} else {
-			DEObject.setVisible(dist -1);
+			DEObject.setVisible(dist - 1);
 		}
 
-		 System.out.println(level + " " + dist + " " + score);
+		System.out.println(level + " " + dist + " " + score + "     " + startingColor);
 
 	}
 	// End of Color setter
@@ -145,36 +153,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	// End of Color setter
 
 	public void levelMult() {
-	
-		//on big spaces make it * mult
-		//
-		//
-		//
-		//
-		//
-		//
-		///
-		//
-		//
-		///
-		///
-		///
-		//
-		///
-		//
-		///
-		///
-		///
-		//
-		///
-		//
-		///
-		//
-		//
-		///
-		
-		
-		if (score >= (level               )) {
+
+		if (score >= (level * mult)) {
 			level++;
 			menuState = congratState;
 			f.pack();
@@ -187,9 +167,20 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	public DEGamePanel(JFrame f) {
 		this.f = f;
 		om = new DEObjectManager();
+		diggerGif = new ImageIcon(getClass().getResource("giphy.gif")).getImage();
 		try {
-			//diggerGif = ImageIcon(getClass().getResource("giphy.gif").getIMage());
-				diggerGif= ImageIO.read(this.getClass().getResourceAsStream("giphy.gif"));
+			skyPic = ImageIO.read(this.getClass().getResourceAsStream("sky.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			grassPic = ImageIO.read(this.getClass().getResourceAsStream("grass.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			dirtPic= ImageIO.read(this.getClass().getResourceAsStream("dirt.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -242,8 +233,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	// Methods
 	public void paintComponent(Graphics g) {
 		if (menuState == gameState) {
+			
 			om.draw(g);
-
+			
 			g.setColor(Color.BLUE);
 			g.fillRect(0, DERunner.height - 20, DERunner.width, DERunner.blockSize);
 			g.setColor(Color.red);
@@ -324,15 +316,14 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			g.drawString("Press Enter to Restart", 78, 400);
 			g.drawString("Better Luck Next Time", 78, 450);
 
-		}
-		else if (menuState == congratState) {
+		} else if (menuState == congratState) {
 			g.setColor(Color.GREEN);
 			g.fillRect(0, 0, DERunner.width, DERunner.height);
 			g.setColor(Color.BLACK);
 			g.setFont(titleFont);
-			g.drawString("Congrats on beating level "+ (level-1), 45, 30);
+			g.drawString("Congrats on beating level " + (level - 1), 45, 30);
 			g.setFont(instructionFont);
-			g.drawString("Press enter to go onto level "+ level, 80, 400);
+			g.drawString("Press enter to go onto level " + level, 80, 400);
 			g.drawImage(diggerGif, 75, 85, 250, 250, null);
 
 		}
@@ -393,6 +384,13 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			if (e.getKeyCode() == 10) {
 				menuState = startState;
 				restart();
+			}
+		}
+		if (menuState == congratState) {
+			if (e.getKeyCode() == 10) {
+				menuState = gameState;
+				f.pack();
+				f.setSize(DERunner.width, DERunner.height + DERunner.blockSize);
 			}
 		}
 

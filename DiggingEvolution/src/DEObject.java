@@ -30,7 +30,6 @@ public class DEObject {
 	private static final Color two = new Color(119, 85, 100);
 
 	private static final Color one = new Color(119, 85, 115);
-
 	private static final Color invisible = new Color(119, 85, 34);
 
 	// next
@@ -61,22 +60,21 @@ public class DEObject {
 	public void draw(Graphics g) {
 
 		if (DEGamePanel.emptyTop == state) {
-
+			
 			g.setColor(topState);
 
 			g.fillRect(x, y, width, height);
 
 		} else if (DEGamePanel.emptyBottom == state) {
 
-			g.setColor(invisible);
-
-			g.fillRect(x, y, width, height);
-
+	g.drawImage(DEGamePanel.dirtPic, x, y, width, height, null);
+	
 		}
 
 		else if (DEGamePanel.ab == state) {
 
 			g.setColor(colorList[colors]);
+			//System.out.println("                    " + colors+ "    " );
 
 			g.fillRect(x, y, width, height);
 
