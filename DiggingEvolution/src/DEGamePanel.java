@@ -34,6 +34,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	static final int ab = 1;
 
 	static final int jef = 2;
+	
+	static final int grass = 3;
 
 	int jefCol = 4;
 
@@ -67,11 +69,15 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	private static Image diggerGif;
 
-	 static BufferedImage skyPic;
+	static BufferedImage skyPic;
 
-	 static BufferedImage grassPic;
-	
-	 static BufferedImage dirtPic;
+	static BufferedImage grassPic;
+
+	static BufferedImage dirtPic;
+
+	static BufferedImage ApricotPic;
+
+	static BufferedImage ChefPic;
 
 	int maxName = 15;
 
@@ -98,7 +104,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	String username = "";
 	Random r = new Random();
 
-	final int[][] initState = { { 4, 4, 4, 4, 2, 4, 4, 4, 4 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	final int[][] initState = { { 4, 4, 4, 4, 2, 4, 4, 4, 4 }, { 3, 3, 3, 3, 3, 3, 3, 3, 3 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
@@ -131,8 +137,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		if (dist > 5) {
 			dist = 6;
 		}
-		 if (dist > startingColor) {
-			 
+		if (dist > startingColor) {
+
 			DEObject.setVisible(5);
 		} else {
 			DEObject.setVisible(dist - 1);
@@ -170,17 +176,11 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		diggerGif = new ImageIcon(getClass().getResource("giphy.gif")).getImage();
 		try {
 			skyPic = ImageIO.read(this.getClass().getResourceAsStream("sky.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			grassPic = ImageIO.read(this.getClass().getResourceAsStream("grass.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			dirtPic= ImageIO.read(this.getClass().getResourceAsStream("dirt.png"));
+			dirtPic = ImageIO.read(this.getClass().getResourceAsStream("dirt.png"));
+			ApricotPic = ImageIO.read(this.getClass().getResourceAsStream("apricot.jpg"));
+			ChefPic = ImageIO.read(this.getClass().getResourceAsStream("chef.jpg"));
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -233,9 +233,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	// Methods
 	public void paintComponent(Graphics g) {
 		if (menuState == gameState) {
-			
+
 			om.draw(g);
-			
+
 			g.setColor(Color.BLUE);
 			g.fillRect(0, DERunner.height - 20, DERunner.width, DERunner.blockSize);
 			g.setColor(Color.red);

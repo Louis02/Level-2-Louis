@@ -36,7 +36,7 @@ public class DEObject {
 
 	private static final Color topState = new Color(200, 100, 100);
 
-	static final Color[] colorList = { one, two, three, four, five, invisible };
+	static final Color[] colorList = { one, two, three, four, five };
 
 	Random r;
 
@@ -60,29 +60,39 @@ public class DEObject {
 	public void draw(Graphics g) {
 
 		if (DEGamePanel.emptyTop == state) {
-			
+
 			g.setColor(topState);
 
-			g.fillRect(x, y, width, height);
+			//g.fillRect(x, y, width, height);
+			g.drawImage(DEGamePanel.skyPic, x, y, width, height, null);
 
 		} else if (DEGamePanel.emptyBottom == state) {
 
-	g.drawImage(DEGamePanel.dirtPic, x, y, width, height, null);
-	
+			g.drawImage(DEGamePanel.dirtPic, x, y, width, height, null);
+
 		}
 
 		else if (DEGamePanel.ab == state) {
+			
+			//System.out.println("                    " + colors + "    " + colorList.length + "      ");
+			
+			if (colors < colorList.length) {
+				g.setColor(colorList[colors]);
+				
+				g.drawImage(DEGamePanel.ApricotPic, x, y, width, height, null);
+			}
+			else {
+				g.drawImage(DEGamePanel.dirtPic, x, y, width, height, null);
 
-			g.setColor(colorList[colors]);
-			//System.out.println("                    " + colors+ "    " );
-
-			g.fillRect(x, y, width, height);
+			}
+		}
+		else if (DEGamePanel.jef == state) {
+			g.setColor(Color.red);
+			g.drawImage(DEGamePanel.ChefPic, x, y, width, height, null);
 
 		}
-		if (DEGamePanel.jef == state) {
-			g.setColor(Color.red);
-			g.fillRect(x, y, width, height);
-
+		else if (DEGamePanel.grass == state) {
+			g.drawImage(DEGamePanel.grassPic, x, y, width, height, null);
 		}
 
 	}

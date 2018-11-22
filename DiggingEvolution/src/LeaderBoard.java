@@ -1,4 +1,3 @@
-import com.sun.javafx.image.impl.ByteIndexed.Getter;
 
 public class LeaderBoard implements Comparable<LeaderBoard> {
 	String name;
@@ -23,11 +22,14 @@ public class LeaderBoard implements Comparable<LeaderBoard> {
 		// TODO Auto-generated method stub
 		if (score > other.getScore()) {
 			return -1;
+			
 		} else if (score < other.getScore()) {
 			return 1;
+			
 
 		} else {
 			return 0;
+			
 		}
 	}
 
