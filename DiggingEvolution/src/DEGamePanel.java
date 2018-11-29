@@ -54,6 +54,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	JFrame f;
 
 	int startingColor = 6;
+	
+	int limit = 13;
 
 	static final int startState = 0;
 
@@ -178,8 +180,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			skyPic = ImageIO.read(this.getClass().getResourceAsStream("sky.png"));
 			grassPic = ImageIO.read(this.getClass().getResourceAsStream("grass.png"));
 			dirtPic = ImageIO.read(this.getClass().getResourceAsStream("dirt.png"));
-			ApricotPic = ImageIO.read(this.getClass().getResourceAsStream("apricot.jpg"));
-			ChefPic = ImageIO.read(this.getClass().getResourceAsStream("chef.jpg"));
+			ApricotPic = ImageIO.read(this.getClass().getResourceAsStream("apricot.png"));
+			ChefPic = ImageIO.read(this.getClass().getResourceAsStream("chef.png"));
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -311,6 +313,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				}
 				score = 0;
 				level = 1;
+				startingColor =6;
 			}
 			g.setFont(titleFont);
 			g.drawString("Press Enter to Restart", 78, 400);
@@ -382,6 +385,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		}
 		if (menuState == endState) {
 			if (e.getKeyCode() == 10) {
+				
+				score = 0;
 				menuState = startState;
 				restart();
 			}
@@ -488,7 +493,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 		colorSetter();
 
 		System.out.println("        " + count);
-		if (count > 13) {
+		if (count > limit) {
 			count = 0;
 			System.out.println("ending");
 			menuState = endState;
