@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -10,13 +12,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-public class DEGamePanel extends JPanel implements KeyListener {
+public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	// Member Variables
 
 	DEObjectManager om;
@@ -55,7 +59,9 @@ public class DEGamePanel extends JPanel implements KeyListener {
 
 	int startingColor = 6;
 	
-	int limit = 13;
+	Timer timer;
+	
+	int limit = 1000;
 
 	static final int startState = 0;
 
@@ -80,6 +86,8 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	static BufferedImage ApricotPic;
 
 	static BufferedImage ChefPic;
+	
+	static BufferedImage cloudlessPic;
 
 	int maxName = 15;
 
@@ -182,14 +190,19 @@ public class DEGamePanel extends JPanel implements KeyListener {
 			dirtPic = ImageIO.read(this.getClass().getResourceAsStream("dirt.png"));
 			ApricotPic = ImageIO.read(this.getClass().getResourceAsStream("apricot.png"));
 			ChefPic = ImageIO.read(this.getClass().getResourceAsStream("chef.png"));
+			cloudlessPic = ImageIO.read(this.getClass().getResourceAsStream("cloudless.jpg"));
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		timer = new Timer(1000, this);
+	
 		grid = new DEObject[rows][cols];
 
 		start();
+		timer.start();
 
 	}
 
@@ -487,6 +500,7 @@ public class DEGamePanel extends JPanel implements KeyListener {
 				grid[jefRow][jefCol].state(jef);
 
 				state[jefRow][jefCol] = jef;
+				
 				count++;
 			}
 		}
@@ -529,5 +543,11 @@ public class DEGamePanel extends JPanel implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		DEObject.clouds();
+		
 	}
 }
