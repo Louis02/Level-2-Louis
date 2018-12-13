@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -38,7 +37,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	static final int ab = 1;
 
 	static final int jef = 2;
-	
+
 	static final int grass = 3;
 
 	int jefCol = 4;
@@ -58,10 +57,10 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	JFrame f;
 
 	int startingColor = 6;
-	
+
 	Timer timer;
-	
-	int limit = 1000;
+
+	int limit = 13;
 
 	static final int startState = 0;
 
@@ -86,7 +85,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	static BufferedImage ApricotPic;
 
 	static BufferedImage ChefPic;
-	
+
 	static BufferedImage cloudlessPic;
 
 	int maxName = 15;
@@ -100,6 +99,8 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	int[] scoreList;
 
 	String user;
+
+	String lastUser;
 
 	Font titleFont = new Font("Ariel", Font.BOLD, 22);
 
@@ -191,14 +192,13 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			ApricotPic = ImageIO.read(this.getClass().getResourceAsStream("apricot.png"));
 			ChefPic = ImageIO.read(this.getClass().getResourceAsStream("chef.png"));
 			cloudlessPic = ImageIO.read(this.getClass().getResourceAsStream("cloudless.jpg"));
-			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		timer = new Timer(1000, this);
-	
+
 		grid = new DEObject[rows][cols];
 
 		start();
@@ -291,6 +291,8 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 			g.setFont(instructionFont);
 			g.drawString("Your score is " + ((Integer) lastScore).toString(), 135, 85);
+			// System.out.println(lastUser);
+			// System.out.println(user);
 
 			// rect
 			g.drawRect(100, 125, 200, 229);
@@ -311,14 +313,17 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			if (numMax > 10) {
 				numMax = 10;
 			}
+
 			for (int i = 0; i < numMax; i++) {
 
-				if (user.length() > maxName) {
+				if (user != null && user.length() > maxName) {
 
 					g.drawString(names.get(i).getName().substring(0, maxName), 110, 155);
 					g.drawString("" + names.get(i).getScore(), 110, 200);
-					user = " ";
-				} else {
+
+				}
+
+				else {
 
 					g.drawString(names.get(i).getName(), 110, 145 + (i * 23));
 					g.drawString("" + names.get(i).getScore(), 260, 145 + (i * 23));
@@ -326,7 +331,10 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 				}
 				score = 0;
 				level = 1;
-				startingColor =6;
+				startingColor = 6;
+			}
+			if (user == null) {
+				user = lastUser;
 			}
 			g.setFont(titleFont);
 			g.drawString("Press Enter to Restart", 78, 400);
@@ -373,32 +381,39 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 				activeUser = !activeUser;
 
 			} else if (activeUser) {
+
 				user = username += ((Character) e.getKeyChar()).toString();
 
 			}
 
 			// ignore
 			// makes not user name things work
-			else if (!activeUser) {
+			else if (!activeUser || activeUser) {
 				// enter
 				if (e.getKeyCode() == 10) {
 					menuState = gameState;
+
 					f.pack();
 					f.setSize(DERunner.width, DERunner.height + DERunner.blockSize);
-
 				}
+				}
+			else if(!activeUser) {
 				// space
-				else if (e.getKeyCode() == 32) {
+				 if (e.getKeyCode() == 32) {
 					JOptionPane.showMessageDialog(null,
 							"Press Enter to start the game\nUse the arrow keys to move all directions\nThe object of the game is to search around the grid\nUntil a faint green square shows up and you must obtain it\nYou only have 13 moves to complete it");
 				}
 			}
-
+		
 			repaint();
 		}
+	
 		if (menuState == endState) {
+			if (user != null) {
+				lastUser = user;
+			}
 			if (e.getKeyCode() == 10) {
-				
+				System.out.println(lastUser);
 				score = 0;
 				menuState = startState;
 				restart();
@@ -500,7 +515,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 				grid[jefRow][jefCol].state(jef);
 
 				state[jefRow][jefCol] = jef;
-				
+
 				count++;
 			}
 		}
@@ -514,8 +529,25 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			f.pack();
 			f.setSize(DERunner.width, DERunner.height);
 			lastScore = score;
-			names.add(new LeaderBoard(username, score));
+			Collections.sort(names);
+			if (names.size() == 0) {
+				names.add(new LeaderBoard(user, score));
+			} else {
+				System.out.println(names.size() + "        " + user);
+				for (int i =0; i<names.size(); i++) {
 
+					if (!names.get(i).getName().equals(user)) {
+						System.out.println(user);
+						names.add(new LeaderBoard(user, score));
+					}
+
+					else if (names.get(i).score < score) {
+						names.get(i).score = score;
+
+					}
+				}
+
+			}
 		} else if (jefRow == abRow && jefCol == abCol) {
 			System.out.println("found it");
 
@@ -548,6 +580,6 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		DEObject.clouds();
-		
+
 	}
 }

@@ -26,13 +26,18 @@ public class DEObject {
 
 	static int colors;
 	
+	
 	// private static final Color invisible = new Color(119, 85, 34);
 
 	// next
 
 	// private static final Color topState = new Color(200, 100, 100);
 
+	
+	
 	static final Float[] opaque = { 1f, .7f, .4f, .2f, 0.12f };
+	
+	static final int[] cloud = { r,r,r,r,r,r};
 
 	// Constructor
 	public DEObject(int width, int height, int row, int col, int state) {
@@ -40,7 +45,7 @@ public class DEObject {
 
 		y = height * row;
 
-		r = new Random().nextInt(2);
+		r= new Random().nextInt(2);
 
 		this.width = width;
 
