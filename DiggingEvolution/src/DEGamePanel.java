@@ -40,9 +40,13 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 	static final int grass = 3;
 
-	int jefCol = 4;
+	static final int JEF_COL_NUMBER = 4;
+	
+	static final int JEF_ROW_NUMBER = 0;
+	
+	int jefCol = JEF_COL_NUMBER;
 
-	int jefRow = 0;
+	int jefRow = JEF_ROW_NUMBER;
 
 	int count = 0;
 
@@ -72,6 +76,10 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 	int menuState = startState;
 
+	static final int infoState = 4;
+
+	static final int livesState = 5;
+
 	static final int esc = 27;
 
 	private static Image diggerGif;
@@ -87,6 +95,8 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	static BufferedImage ChefPic;
 
 	static BufferedImage cloudlessPic;
+
+	int lives = 5;
 
 	int maxName = 15;
 
@@ -350,6 +360,27 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			g.drawString("Press enter to go onto level " + level, 80, 400);
 			g.drawImage(diggerGif, 75, 85, 250, 250, null);
 
+		} else if (menuState == infoState) {
+			g.setColor(Color.ORANGE);
+			g.fillRect(0, 0, DERunner.width, DERunner.height);
+			g.setColor(Color.BLACK);
+			g.setFont(instructionFont);
+			g.drawString("Press Enter to go back to the Start Screen", 20, 100);
+			g.drawString("Use the arrow keys to move all directions", 22, 150);
+			g.drawString("The object of the game is to search around ", 10, 200);
+			g.drawString("The grid until a faint abrikoos shows up", 20, 250);
+			g.drawString("and you must obtain", 100, 300);
+			g.drawString("You only have 13 moves to complete it", 25, 350);
+		}
+		else if (menuState==livesState) {
+			g.setColor(Color.red);
+			g.fillRect(0, 0, DERunner.width, DERunner.height);
+			g.setColor(Color.BLACK);
+			g.setFont(titleFont);
+			g.drawString("Be careful you only have "+ lives+" lives left", 0, 150);
+			g.setFont(instructionFont);
+			g.drawString("Press enter to get back to the game", 50, 250);
+			
 		}
 		repaint();
 	}
@@ -368,46 +399,53 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (menuState == gameState) {
+			//f.pack();
 			gameStateKeys(e);
 
+		
+			
+			
 		}
 
 		else if (menuState == startState) {
 
 			int key = e.getKeyCode();
 
+			if (activeUser) {
+
+				user = username += ((Character) e.getKeyChar()).toString();
+
+			}
 			if (key == esc) {
 
 				activeUser = !activeUser;
-
-			} else if (activeUser) {
-
-				user = username += ((Character) e.getKeyChar()).toString();
 
 			}
 
 			// ignore
 			// makes not user name things work
-			else if (!activeUser || activeUser) {
-				// enter
-				if (e.getKeyCode() == 10) {
-					menuState = gameState;
 
-					f.pack();
-					f.setSize(DERunner.width, DERunner.height + DERunner.blockSize);
-				}
-				}
-			else if(!activeUser) {
+			else if (!activeUser && e.getKeyCode() == 32) {
 				// space
-				 if (e.getKeyCode() == 32) {
-					JOptionPane.showMessageDialog(null,
-							"Press Enter to start the game\nUse the arrow keys to move all directions\nThe object of the game is to search around the grid\nUntil a faint green square shows up and you must obtain it\nYou only have 13 moves to complete it");
-				}
+				menuState = infoState;
+				// JOptionPane.showMessageDialog(null,
+				// "Press Enter to start the game\nUse the arrow keys to move all
+				// directions\nThe object of the game is to search around the grid\n The grid
+				// Until a faint green square shows up and you must obtain it\nYou only have 13
+				// moves to complete it");
+
+			} else if (e.getKeyCode() == 10) {
+				// enter
+				menuState = gameState;
+
+				f.pack();
+				f.setSize(DERunner.width, DERunner.height + DERunner.blockSize);
+
 			}
-		
+
 			repaint();
 		}
-	
+
 		if (menuState == endState) {
 			if (user != null) {
 				lastUser = user;
@@ -424,6 +462,20 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 				menuState = gameState;
 				f.pack();
 				f.setSize(DERunner.width, DERunner.height + DERunner.blockSize);
+			}
+		}
+		if (menuState == infoState) {
+			if (e.getKeyCode() == 10) {
+				menuState = startState;
+			}
+		}
+		if (menuState == livesState) {
+			f.setSize(DERunner.width, DERunner.height);
+			if (e.getKeyCode() == 10) {
+				f.setSize(DERunner.width, DERunner.height+DERunner.blockSize);
+				start();
+				menuState = gameState;
+				 
 			}
 		}
 
@@ -525,7 +577,14 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 		if (count > limit) {
 			count = 0;
 			System.out.println("ending");
+			lives--;
+			
+			menuState = livesState;
+
+		}
+		if (lives <= 0) {
 			menuState = endState;
+
 			f.pack();
 			f.setSize(DERunner.width, DERunner.height);
 			lastScore = score;
@@ -534,7 +593,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 				names.add(new LeaderBoard(user, score));
 			} else {
 				System.out.println(names.size() + "        " + user);
-				for (int i =0; i<names.size(); i++) {
+				for (int i = 0; i < names.size(); i++) {
 
 					if (!names.get(i).getName().equals(user)) {
 						System.out.println(user);
@@ -567,13 +626,11 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
