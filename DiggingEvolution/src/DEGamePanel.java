@@ -227,11 +227,12 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 		abRow = r.nextInt(rows - 1) + 1;
 		abCol = r.nextInt(cols);
 		state[abRow][abCol] = ab;
-
+int [] map = createCoudMap();
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 
 				grid[r][c] = new DEObject(DERunner.width / cols, (DERunner.height - 20) / rows, r, c, state[r][c]);
+				grid[r][c].setCloudMap(map);
 				if (state[r][c] == jef) {
 					jefRow = r;
 					jefCol = c;
@@ -242,6 +243,11 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			}
 		}
 		colorSetter();
+	}
+
+	private int[] createCoudMap() {
+		// TODO Auto-generated method stub
+		return new int []{1,0,1,0,1,0,1};
 	}
 
 	// Methods
@@ -326,7 +332,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 			for (int i = 0; i < numMax; i++) {
 
-				if (user != null && user.length() > maxName) {
+			if (user != null && user.length() > maxName) {
 
 					g.drawString(names.get(i).getName().substring(0, maxName), 110, 155);
 					g.drawString("" + names.get(i).getScore(), 110, 200);
@@ -447,7 +453,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 		}
 
 		if (menuState == endState) {
-			if (user != null) {
+			if (user == null) {
 				lastUser = user;
 			}
 			if (e.getKeyCode() == 10) {
@@ -455,6 +461,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 				score = 0;
 				menuState = startState;
 				restart();
+				lives=5;
 			}
 		}
 		if (menuState == congratState) {
@@ -482,6 +489,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	}
 
 	private void gameStateKeys(KeyEvent e) {
+		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 
 			if (jefCol < (cols - 1)) {
@@ -636,7 +644,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		DEObject.clouds();
+		//DEObject.clouds();
 
 	}
 }

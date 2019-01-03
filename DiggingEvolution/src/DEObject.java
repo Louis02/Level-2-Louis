@@ -22,11 +22,11 @@ public class DEObject {
 
 	int state;
 	
-	static int r;
+
 
 	static int colors;
 	
-	
+	static int []cloudMap;
 	// private static final Color invisible = new Color(119, 85, 34);
 
 	// next
@@ -37,7 +37,7 @@ public class DEObject {
 	
 	static final Float[] opaque = { 1f, .7f, .4f, .2f, 0.12f };
 	
-	static final int[] cloud = { r,r,r,r,r,r};
+
 
 	// Constructor
 	public DEObject(int width, int height, int row, int col, int state) {
@@ -45,7 +45,7 @@ public class DEObject {
 
 		y = height * row;
 
-		r= new Random().nextInt(2);
+		
 
 		this.width = width;
 
@@ -60,9 +60,9 @@ public class DEObject {
 
 		if (DEGamePanel.emptyTop == state) {
 			
-			if (r  == 1) {
+			if (cloudMap[col] == 1) {
 				g.drawImage(DEGamePanel.skyPic, x, y, width, height, null);
-			} else if (r == 0) {
+			} else if (cloudMap[col] == 0) {
 				g.drawImage(DEGamePanel.cloudlessPic, x, y, width, height, null);
 			}
 		} else if (DEGamePanel.emptyBottom == state) {
@@ -102,9 +102,11 @@ public class DEObject {
 		}
 
 	}
-	
-	public static void clouds () {
-		r=new Random().nextInt(2);
+	public void setCloudMap(int array[]) {
+		cloudMap = array;
+	}
+	public void clouds () {
+		
 	}
 
 	public static void setVisible(int v) {
