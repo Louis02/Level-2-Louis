@@ -60,12 +60,14 @@ public class DEObject {
 
 		if (DEGamePanel.emptyTop == state) {
 			
-			if (cloudMap[col] == 1) {
-				g.drawImage(DEGamePanel.skyPic, x, y, width, height, null);
-			} else if (cloudMap[col] == 0) {
+			
 				g.drawImage(DEGamePanel.cloudlessPic, x, y, width, height, null);
-			}
-		} else if (DEGamePanel.emptyBottom == state) {
+			
+		}
+		else if (DEGamePanel.NOcloud==state) {
+			g.drawImage(DEGamePanel.skyPic, x, y, width, height, null);
+		}
+		else if (DEGamePanel.emptyBottom == state) {
 
 			g.drawImage(DEGamePanel.dirtPic, x, y, width, height, null);
 

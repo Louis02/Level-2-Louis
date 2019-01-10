@@ -33,6 +33,8 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	static final int emptyBottom = 0;
 
 	static final int emptyTop = 4;
+	
+	static final int NOcloud = 5;
 
 	static final int ab = 1;
 
@@ -41,9 +43,9 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	static final int grass = 3;
 
 	static final int JEF_COL_NUMBER = 4;
-	
+
 	static final int JEF_ROW_NUMBER = 0;
-	
+
 	int jefCol = JEF_COL_NUMBER;
 
 	int jefRow = JEF_ROW_NUMBER;
@@ -125,7 +127,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	String username = "";
 	Random r = new Random();
 
-	final int[][] initState = { { 4, 4, 4, 4, 2, 4, 4, 4, 4 }, { 3, 3, 3, 3, 3, 3, 3, 3, 3 },
+	final int[][] initState = { { 5, 4, 4, 5, 2, 4, 5, 4, 4 }, { 3, 3, 3, 3, 3, 3, 3, 3, 3 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
@@ -227,7 +229,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 		abRow = r.nextInt(rows - 1) + 1;
 		abCol = r.nextInt(cols);
 		state[abRow][abCol] = ab;
-int [] map = createCoudMap();
+		int[] map = createCoudMap();
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 
@@ -247,7 +249,7 @@ int [] map = createCoudMap();
 
 	private int[] createCoudMap() {
 		// TODO Auto-generated method stub
-		return new int []{1,0,1,0,1,0,1};
+		return new int[] { 1, 0, 1, 0, 1, 0, 1 };
 	}
 
 	// Methods
@@ -332,7 +334,7 @@ int [] map = createCoudMap();
 
 			for (int i = 0; i < numMax; i++) {
 
-			if (user != null && user.length() > maxName) {
+				if (user != null && user.length() > maxName) {
 
 					g.drawString(names.get(i).getName().substring(0, maxName), 110, 155);
 					g.drawString("" + names.get(i).getScore(), 110, 200);
@@ -353,7 +355,7 @@ int [] map = createCoudMap();
 				user = lastUser;
 			}
 			g.setFont(titleFont);
-			g.drawString("Press Enter to Restart", 78, 400);
+			g.drawString("Press Space to Restart", 78, 400);
 			g.drawString("Better Luck Next Time", 78, 450);
 
 		} else if (menuState == congratState) {
@@ -363,7 +365,7 @@ int [] map = createCoudMap();
 			g.setFont(titleFont);
 			g.drawString("Congrats on beating level " + (level - 1), 45, 30);
 			g.setFont(instructionFont);
-			g.drawString("Press enter to go onto level " + level, 80, 400);
+			g.drawString("Press space to go onto level " + level, 80, 400);
 			g.drawImage(diggerGif, 75, 85, 250, 250, null);
 
 		} else if (menuState == infoState) {
@@ -377,16 +379,15 @@ int [] map = createCoudMap();
 			g.drawString("The grid until a faint abrikoos shows up", 20, 250);
 			g.drawString("and you must obtain", 100, 300);
 			g.drawString("You only have 13 moves to complete it", 25, 350);
-		}
-		else if (menuState==livesState) {
+		} else if (menuState == livesState) {
 			g.setColor(Color.red);
 			g.fillRect(0, 0, DERunner.width, DERunner.height);
 			g.setColor(Color.BLACK);
 			g.setFont(titleFont);
-			g.drawString("Be careful you only have "+ lives+" lives left", 0, 150);
+			g.drawString("Be careful you only have " + lives + " lives left", 0, 150);
 			g.setFont(instructionFont);
-			g.drawString("Press enter to get back to the game", 50, 250);
-			
+			g.drawString("Press space to get back to the game", 50, 250);
+
 		}
 		repaint();
 	}
@@ -405,12 +406,9 @@ int [] map = createCoudMap();
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (menuState == gameState) {
-			//f.pack();
+			// f.pack();
 			gameStateKeys(e);
 
-		
-			
-			
 		}
 
 		else if (menuState == startState) {
@@ -456,16 +454,16 @@ int [] map = createCoudMap();
 			if (user == null) {
 				lastUser = user;
 			}
-			if (e.getKeyCode() == 10) {
+			if (e.getKeyCode() == 32) {
 				System.out.println(lastUser);
 				score = 0;
 				menuState = startState;
 				restart();
-				lives=5;
+				lives = 5;
 			}
 		}
 		if (menuState == congratState) {
-			if (e.getKeyCode() == 10) {
+			if (e.getKeyCode() == 32) {
 				menuState = gameState;
 				f.pack();
 				f.setSize(DERunner.width, DERunner.height + DERunner.blockSize);
@@ -478,18 +476,18 @@ int [] map = createCoudMap();
 		}
 		if (menuState == livesState) {
 			f.setSize(DERunner.width, DERunner.height);
-			if (e.getKeyCode() == 10) {
-				f.setSize(DERunner.width, DERunner.height+DERunner.blockSize);
+			if (e.getKeyCode() == 32) {
+				f.setSize(DERunner.width, DERunner.height + DERunner.blockSize);
 				start();
 				menuState = gameState;
-				 
+
 			}
 		}
 
 	}
 
 	private void gameStateKeys(KeyEvent e) {
-		
+
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 
 			if (jefCol < (cols - 1)) {
@@ -586,7 +584,7 @@ int [] map = createCoudMap();
 			count = 0;
 			System.out.println("ending");
 			lives--;
-			
+
 			menuState = livesState;
 
 		}
@@ -623,9 +621,9 @@ int [] map = createCoudMap();
 		}
 
 		for (int i = 0; i < cols; i++) {
-
+//hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
 			if (state[0][i] != jef) {
-				state[0][i] = emptyTop;
+				//state[0][i] = emptyTop;
 				grid[0][i].state(emptyTop);
 			}
 		}
@@ -644,7 +642,7 @@ int [] map = createCoudMap();
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//DEObject.clouds();
+		// DEObject.clouds();
 
 	}
 }
