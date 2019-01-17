@@ -1,11 +1,4 @@
 /.DS_Store
-/apricot.png
-/chef.png
-/cloudless.jpg
-/dirt.png
-/giphy.gif
-/grass.png
-/sky.png
 /DEAbrikoos.class
 /DEGameObject.class
 /DEGamePanel.class
@@ -15,3 +8,10 @@
 /DERunner.class
 /DEState.class
 /LeaderBoard.class
+/apricot.png
+/chef.png
+/cloudless.jpg
+/dirt.png
+/giphy.gif
+/grass.png
+/sky.png

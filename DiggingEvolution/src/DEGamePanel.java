@@ -32,7 +32,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 	static final int emptyBottom = 0;
 
-	static final int emptyTop = 4;
+	static final int Cloud = 4;
 	
 	static final int NOcloud = 5;
 
@@ -84,6 +84,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 	static final int esc = 27;
 
+
 	private static Image diggerGif;
 
 	static BufferedImage skyPic;
@@ -127,7 +128,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	String username = "";
 	Random r = new Random();
 
-	final int[][] initState = { { 5, 4, 4, 5, 2, 4, 5, 4, 4 }, { 3, 3, 3, 3, 3, 3, 3, 3, 3 },
+	final int[][] initState = { { 5, 4, 5, 4, 2, 4, 5, 4, 5 }, { 3, 3, 3, 3, 3, 3, 3, 3, 3 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
@@ -215,7 +216,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 		start();
 		timer.start();
-
+	
 	}
 
 	public void start() {
@@ -249,7 +250,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 	private int[] createCoudMap() {
 		// TODO Auto-generated method stub
-		return new int[] { 1, 0, 1, 0, 1, 0, 1 };
+		return new int[] { Cloud, NOcloud, Cloud, NOcloud, Cloud, NOcloud, Cloud };
 	}
 
 	// Methods
@@ -266,7 +267,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	// Methods
 	public void paintComponent(Graphics g) {
 		if (menuState == gameState) {
-
+			System.out.println(state[0][4]);
 			om.draw(g);
 
 			g.setColor(Color.BLUE);
@@ -274,7 +275,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			g.setColor(Color.red);
 			g.drawString("Your Level is " + (level), 10, DERunner.height + 6);
 			g.drawString("Your Score is " + (score), 295, DERunner.height + 6);
-
+			
 		} else if (menuState == startState) {
 			g.setColor(Color.blue);
 
@@ -491,12 +492,23 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 
 			if (jefCol < (cols - 1)) {
-
+				if(jefRow==0) {
+					state[jefRow][jefCol] = Cloud;
+							
+					grid[jefRow][jefCol].state(Cloud);
+				}
+				else {
 				state[jefRow][jefCol] = emptyBottom;
 
 				grid[jefRow][jefCol].state(emptyBottom);
-
+				}
 				jefCol++;
+				
+				
+						//state[0][i] = emptyTop;
+						
+					
+				
 
 				if (state[jefRow][jefCol] == ab) {
 					levelMult();
@@ -515,11 +527,17 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 		else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 
 			if (jefCol > 0) {
-
+				if(jefRow==0) {
+					state[jefRow][jefCol] = Cloud;
+							
+					grid[jefRow][jefCol].state(Cloud);
+				}
+				else {
 				state[jefRow][jefCol] = emptyBottom;
 
 				grid[jefRow][jefCol].state(emptyBottom);
-
+				}
+				
 				jefCol--;
 				if (state[jefRow][jefCol] == ab) {
 					levelMult();
@@ -537,10 +555,18 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 		else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 
 			if (jefRow < (rows - 1)) {
-
+				
+				if(jefRow==0) {
+					
+					state[jefRow][jefCol] = Cloud;
+					grid[jefRow][jefCol].state(Cloud);
+					System.out.println("gvdjhgbggb   " +state[jefRow] [jefCol] + "        " + grid[jefRow][jefCol].state + "     " + jefCol);
+				}
+				else {
 				state[jefRow][jefCol] = emptyBottom;
 
 				grid[jefRow][jefCol].state(emptyBottom);
+				}
 
 				jefRow++;
 				if (state[jefRow][jefCol] == ab) {
@@ -559,10 +585,16 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 		else if (e.getKeyCode() == KeyEvent.VK_UP) {
 
 			if (jefRow > 0) {
+				if(jefRow==0) {
+					state[jefRow][jefCol] = Cloud;
+							
+					grid[jefRow][jefCol].state(Cloud);
+				}
+				else {
 				state[jefRow][jefCol] = emptyBottom;
 
 				grid[jefRow][jefCol].state(emptyBottom);
-
+				}
 				jefRow--;
 				if (state[jefRow][jefCol] == ab) {
 					levelMult();
@@ -620,13 +652,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			start();
 		}
 
-		for (int i = 0; i < cols; i++) {
-//hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-			if (state[0][i] != jef) {
-				//state[0][i] = emptyTop;
-				grid[0][i].state(emptyTop);
-			}
-		}
+		
 
 	}
 

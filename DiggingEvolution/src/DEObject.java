@@ -21,23 +21,23 @@ public class DEObject {
 	int height;
 
 	int state;
-	
 
+	private int myState;
+
+	int[] skyState = new int[9];
+
+	int counter = 0;
 
 	static int colors;
-	
-	static int []cloudMap;
+
+	static int[] cloudMap;
 	// private static final Color invisible = new Color(119, 85, 34);
 
 	// next
 
 	// private static final Color topState = new Color(200, 100, 100);
 
-	
-	
 	static final Float[] opaque = { 1f, .7f, .4f, .2f, 0.12f };
-	
-
 
 	// Constructor
 	public DEObject(int width, int height, int row, int col, int state) {
@@ -45,7 +45,7 @@ public class DEObject {
 
 		y = height * row;
 
-		
+		myState = state;
 
 		this.width = width;
 
@@ -53,21 +53,37 @@ public class DEObject {
 
 		this.state = state;
 
+//		for (int i = 0; i < skyState.length; i++) {
+//			if (i % 2 == 0) {
+//				skyState[i] = DEGamePanel.NOcloud;
+//			} else {
+//				skyState[i] = DEGamePanel.Cloud;
+//			}
+//		}
+
 	}
 
 	// Methods
 	public void draw(Graphics g) {
+		counter++;
+		if (DEGamePanel.Cloud == state || DEGamePanel.NOcloud == state) {
 
-		if (DEGamePanel.emptyTop == state) {
-			
-			
+			if (myState == DEGamePanel.NOcloud) {
 				g.drawImage(DEGamePanel.cloudlessPic, x, y, width, height, null);
-			
-		}
-		else if (DEGamePanel.NOcloud==state) {
-			g.drawImage(DEGamePanel.skyPic, x, y, width, height, null);
-		}
-		else if (DEGamePanel.emptyBottom == state) {
+				if (counter % 1000 == 0) {
+					myState = DEGamePanel.Cloud;
+
+				}
+			} else {
+				if (myState == DEGamePanel.Cloud) {
+					g.drawImage(DEGamePanel.skyPic, x, y, width, height, null);
+
+					if (counter % 1000 == 0) {
+						myState = DEGamePanel.NOcloud;
+					}
+				}
+			}
+		} else if (DEGamePanel.emptyBottom == state) {
 
 			g.drawImage(DEGamePanel.dirtPic, x, y, width, height, null);
 
@@ -104,11 +120,13 @@ public class DEObject {
 		}
 
 	}
+
 	public void setCloudMap(int array[]) {
 		cloudMap = array;
 	}
-	public void clouds () {
-		
+
+	public void clouds() {
+
 	}
 
 	public static void setVisible(int v) {
