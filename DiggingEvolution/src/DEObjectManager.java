@@ -7,7 +7,7 @@ public class DEObjectManager {
 
 	ArrayList<DEObject> objects;
 
-	private boolean close;
+	
 
 	// Constructor
 	public DEObjectManager() {

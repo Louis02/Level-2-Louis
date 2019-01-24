@@ -1,8 +1,6 @@
 import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Random;
 
 public class DEObject {
 
@@ -22,7 +20,7 @@ public class DEObject {
 
 	int state;
 
-	private int myState;
+
 
 	int[] skyState = new int[9];
 
@@ -45,7 +43,7 @@ public class DEObject {
 
 		y = height * row;
 
-		myState = state;
+		
 
 		this.width = width;
 
@@ -66,21 +64,18 @@ public class DEObject {
 	// Methods
 	public void draw(Graphics g) {
 		counter++;
+
 		if (DEGamePanel.Cloud == state || DEGamePanel.NOcloud == state) {
 
-			if (myState == DEGamePanel.NOcloud) {
+			if (state == DEGamePanel.NOcloud) {
 				g.drawImage(DEGamePanel.cloudlessPic, x, y, width, height, null);
-				if (counter % 1000 == 0) {
-					myState = DEGamePanel.Cloud;
-
-				}
+			
+				
 			} else {
-				if (myState == DEGamePanel.Cloud) {
+				if (state == DEGamePanel.Cloud) {
 					g.drawImage(DEGamePanel.skyPic, x, y, width, height, null);
 
-					if (counter % 1000 == 0) {
-						myState = DEGamePanel.NOcloud;
-					}
+					
 				}
 			}
 		} else if (DEGamePanel.emptyBottom == state) {
