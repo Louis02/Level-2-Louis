@@ -61,6 +61,8 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	int lastScore = 0;
 
 	JFrame f;
+	
+	static int visibility = 6;
 
 	int startingColor = 6;
 
@@ -81,6 +83,8 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 	static final int infoState = 4;
 
 	static final int livesState = 5;
+	
+	static final int userState = 6;
 
 	static final int esc = 27;
 
@@ -165,7 +169,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			DEObject.setVisible(5);
 		} else {
 			DEObject.setVisible(dist - 1);
-		}
+					}
 
 		System.out.println(level + " " + dist + " " + score + "     " + startingColor);
 
@@ -186,6 +190,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 		if (score >= (level * mult)) {
 			level++;
 			menuState = congratState;
+			visibility-=1;
 			f.pack();
 			f.setSize(DERunner.width, DERunner.height);
 			startingColor = 5 - (score / 5);
@@ -279,6 +284,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			g.setColor(Color.red);
 			g.drawString("Your Level is " + (level), 10, DERunner.height + 6);
 			g.drawString("Your Score is " + (score), 295, DERunner.height + 6);
+			g.drawString("Your visibility is "+ (visibility), 140, DERunner.height+6 );
 
 		} else if (menuState == startState) {
 			g.setColor(Color.blue);
@@ -340,7 +346,7 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			for (int i = 0; i < numMax; i++) {
 
 				if (user != null && user.length() > maxName) {
-
+				
 					g.drawString(names.get(i).getName().substring(0, maxName), 110, 155);
 					g.drawString("" + names.get(i).getScore(), 110, 200);
 
@@ -394,6 +400,15 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 			g.drawString("Press space to get back to the game", 50, 250);
 
 		}
+		else if (menuState == userState) {
+			g.setColor(Color.white);
+			g.fillRect(0, 0, DERunner.width, DERunner.height);
+			g.setColor(Color.red);
+			g.setFont(titleFont);
+			g.drawString("Enter your Username", 80, 100);
+			g.setFont(instructionFont);
+			g.drawString("Press Space to go back to Start State", 45, 400);
+		}
 		repaint();
 	}
 
@@ -426,14 +441,14 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 			}
 			if (key == esc) {
-
+				
 				activeUser = !activeUser;
 
 			}
 
 			// ignore
 			// makes not user name things work
-
+			
 			else if (!activeUser && e.getKeyCode() == 32) {
 				// space
 				menuState = infoState;
@@ -445,11 +460,17 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 
 			} else if (e.getKeyCode() == 10) {
 				// enter
+				if(user==null) {
+					menuState= userState;
+				}
+				if(user!=null) {
+					
+				
 				menuState = gameState;
-
+				
 				f.pack();
 				f.setSize(DERunner.width, DERunner.height + DERunner.blockSize);
-
+				}
 			}
 
 			repaint();
@@ -486,6 +507,14 @@ public class DEGamePanel extends JPanel implements KeyListener, ActionListener {
 				start();
 				menuState = gameState;
 
+			}
+		}
+		if (menuState == userState) {
+			f.setSize(DERunner.width, DERunner.height);
+			if(e.getKeyCode()==32) {
+				f.setSize(DERunner.width, DERunner.height );
+				start();
+				menuState = startState;
 			}
 		}
 
